@@ -10,6 +10,8 @@ import LoginForm from './LoginForm/LoginForm';
 import AuthHeader from '../../components/AuthHeader/AuthHeader';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
+import { AppBar, Button } from '@material-ui/core';
+import logo from '../../Images/logo.png';
 
 export default function Login(): JSX.Element {
   const classes = useStyles();
@@ -39,18 +41,26 @@ export default function Login(): JSX.Element {
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <Grid item xs={12} sm={8} md={7} elevation={6} component={Paper} square>
+      <AppBar position="static" className={classes.navBar}>
+          <img className={classes.heroImage} src={logo} />
+          <div className={classes.navText}>
+            <Typography className={classes.headerTxt} color="primary" variant="h6">Become a sitter</Typography>
+            <Button className={classes.headerBtn} variant="outlined" size="large"  color="secondary">Login</Button>
+            <Button className={classes.headerBtn} variant="contained" size="large" color="secondary">Sign Up</Button>
+          </div>
+      </AppBar>
+      <Grid item xs={12} sm={8} md={7} elevation={6} component={Paper} square className={classes.paperWrapper}>
         <Box className={classes.authWrapper}>
-          <AuthHeader linkTo="/signup" asideText="Don't have an account?" btnText="Create account" />
           <Box width="100%" maxWidth={450} p={3} alignSelf="center">
             <Grid container>
               <Grid item xs>
-                <Typography className={classes.welcome} component="h1" variant="h5">
+                <Typography className={classes.welcome} component="h1" variant="h5" align="center">
                   Welcome back!
                 </Typography>
               </Grid>
             </Grid>
             <LoginForm handleSubmit={handleSubmit} />
+            <AuthHeader linkTo="/signup" asideText="Don't have an account?" btnText="Create account" />
           </Box>
           <Box p={1} alignSelf="center" />
         </Box>

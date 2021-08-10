@@ -21,6 +21,37 @@ const useStyles = makeStyles(() => ({
     color: '#000000',
     fontWeight: 700,
     fontFamily: "'Open Sans'",
+    alignSelf: 'center',
+  },
+  paperWrapper: {
+    height: 600,
+    width: 40,
+    margin: 'auto',
+  },
+  navBar: {
+    padding: '1% 1% 1% 5%',
+    height: 65,
+    backgroundColor: '#FFFFFF',
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  heroImage: {
+    width: 180,
+    height: 30,
+  },
+  navText: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginLeft: 700,
+  },
+  headerBtn: {
+    margin: '0px 10px 0px 40px',
+  },
+  headerTxt: {
+    margin: '5px 10px 0px 10px',
+    color: 'black',
+    textDecoration: 'underline',
   },
 }));
 
