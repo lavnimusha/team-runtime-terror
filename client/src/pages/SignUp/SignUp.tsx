@@ -8,10 +8,9 @@ import useStyles from './useStyles';
 import register from '../../helpers/APICalls/register';
 import SignUpForm from './SignUpForm/SignUpForm';
 import AuthHeader from '../../components/AuthHeader/AuthHeader';
+import NavBar from '../../components/NavBar/NavBar';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
-import { AppBar, Button } from '@material-ui/core';
-import logo from '../../Images/logo.png';
 
 export default function Register(): JSX.Element {
   const classes = useStyles();
@@ -42,14 +41,7 @@ export default function Register(): JSX.Element {
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <AppBar position="static" className={classes.navBar}>
-          <img className={classes.heroImage} src={logo} />
-          <div className={classes.navText}>
-            <Typography className={classes.headerTxt} color="primary" variant="h6">Become a sitter</Typography>
-            <Button className={classes.headerBtn} variant="outlined" size="large"  color="secondary">Login</Button>
-            <Button className={classes.headerBtn} variant="contained" size="large" color="secondary">Sign Up</Button>
-          </div>
-      </AppBar>
+      <NavBar />
       <Grid item xs={12} sm={8} md={7} component={Paper} className={classes.paperWrapper}>
         <Box className={classes.authWrapper}>
           <Box width="100%" maxWidth={450} p={3} alignSelf="center">
