@@ -21,6 +21,12 @@ const useStyles = makeStyles(() => ({
     color: '#000000',
     fontWeight: 700,
     fontFamily: "'Open Sans'",
+    alignSelf: 'center',
+  },
+  paperWrapper: {
+    height: 600,
+    width: 40,
+    margin: 'auto',
   },
 }));
 
