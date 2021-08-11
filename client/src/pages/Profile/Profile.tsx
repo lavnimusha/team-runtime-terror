@@ -1,5 +1,4 @@
 import { Grid, List, ListItem, ListItemText, Paper, Typography } from "@material-ui/core";
-import { useCallback } from "react";
 import useStyles from './useStyles';
 
 export default function Profile(): JSX.Element {
@@ -8,7 +7,7 @@ export default function Profile(): JSX.Element {
     const listText = [
         "Edit Profile",
         "Profile photo",
-        "Availibilty",
+        "Availability",
         "Payment",
         "Security",
         "Settings",
