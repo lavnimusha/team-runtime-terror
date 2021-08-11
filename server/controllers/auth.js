@@ -52,6 +52,33 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
   }
 });
 
+// @route POST /auth/demoLogin
+// @desc Login a demo user
+// @access Public
+exports.loginDemoUser = asyncHandler(async (req, res, next) => {
+  const { email } = req.body;
+  const id = "dogLover1234";
+  const username = "doggieBoy";
+  const token = generateToken(id);
+
+  const secondsInWeek = 604800;
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      maxAge: secondsInWeek * 1000
+    });
+
+    res.status(200).json({
+      success: {
+        user: {
+        id: id,
+        username: username,
+        email: email
+      }
+    }
+  });
+})
+
 // @route POST /auth/login
 // @desc Login user
 // @access Public
