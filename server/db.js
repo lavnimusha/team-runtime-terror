@@ -10,5 +10,14 @@ const connectDB = async () => {
 
   console.log(`MongoDB Connected: ${conn.connection.host}`.cyan.underline.bold);
 };
+const Schema  = mongoose.Schema;
+const ProfileSchema =  new Schema({ 
+		FirstName: String,
+		LastName: String,
+		Description: String,
+		Availability: 	Date
 
-module.exports = connectDB;
+	 });
+const Profile = mongoose.model('Profile', ProfileSchema);
+
+module.exports = { connectDB, Profile }; 
