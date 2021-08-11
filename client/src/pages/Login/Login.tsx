@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import { FormikHelpers } from 'formik';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
-import login from '../../helpers/APICalls/login';
+import { login, demoUserLogin } from '../../helpers/APICalls/login';
 import LoginForm from './LoginForm/LoginForm';
 import AuthHeader from '../../components/AuthHeader/AuthHeader';
 import { useAuth } from '../../context/useAuthContext';
@@ -36,6 +36,18 @@ export default function Login(): JSX.Element {
     });
   };
 
+  const handleDemoLogin = () => {
+    const data = {
+      email: 'doglover@gmail.com',
+      password: 'dogLover',
+    };
+    demoUserLogin(data.email, data.password).then((data) => {
+      if (data.success) {
+        updateLoginContext(data.success);
+      }
+    });
+  };
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -50,7 +62,7 @@ export default function Login(): JSX.Element {
                 </Typography>
               </Grid>
             </Grid>
-            <LoginForm handleSubmit={handleSubmit} />
+            <LoginForm handleSubmit={handleSubmit} handleDemoLogin={handleDemoLogin} />
           </Box>
           <Box p={1} alignSelf="center" />
         </Box>
