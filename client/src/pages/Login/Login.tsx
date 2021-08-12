@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import { FormikHelpers } from 'formik';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
-import login from '../../helpers/APICalls/login';
+import { login, demoUserLogin } from '../../helpers/APICalls/login';
 import LoginForm from './LoginForm/LoginForm';
 import AuthHeader from '../../components/AuthHeader/AuthHeader';
 import NavBar from '../../components/NavBar/NavBar';
@@ -39,12 +39,26 @@ export default function Login(): JSX.Element {
     });
   };
 
+  const handleDemoLogin = () => {
+    const loginData = {
+      email: 'doglover@gmail.com',
+      password: 'dogLover',
+      notifier: 'demoLogin'
+    };
+    demoUserLogin(loginData.email, loginData.password, loginData.notifier).then((data) => {
+      if (data.success) {
+        updateLoginContext(data.success);
+      }
+    });
+  };
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
       <NavBar />
       <Grid item xs={12} sm={8} md={7} elevation={6} component={Paper} square className={classes.paperWrapper}>
         <Box className={classes.authWrapper}>
+          <AuthHeader linkTo="/signup" asideText="Don't have an account?" btnText="Create account" />
           <Box width="100%" maxWidth={450} p={3} alignSelf="center">
             <Grid container>
               <Grid item xs>
@@ -53,8 +67,7 @@ export default function Login(): JSX.Element {
                 </Typography>
               </Grid>
             </Grid>
-            <LoginForm handleSubmit={handleSubmit} />
-            <AuthHeader linkTo="/signup" asideText="Don't have an account?" btnText="Create account" />
+            <LoginForm handleSubmit={handleSubmit} handleDemoLogin={handleDemoLogin} />
           </Box>
           <Box p={1} alignSelf="center" />
         </Box>

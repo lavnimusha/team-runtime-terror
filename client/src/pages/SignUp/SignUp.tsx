@@ -11,6 +11,7 @@ import AuthHeader from '../../components/AuthHeader/AuthHeader';
 import NavBar from '../../components/NavBar/NavBar';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
+import { demoUserLogin } from '../../helpers/APICalls/login';
 
 export default function Register(): JSX.Element {
   const classes = useStyles();
@@ -38,12 +39,29 @@ export default function Register(): JSX.Element {
     });
   };
 
+  const handleDemoLogin = () => {
+    const demoLoginData = {
+      email: 'doglover@gmail.com',
+      password: 'dogLover',
+      notifier: 'demoLogin'
+    };
+    demoUserLogin(demoLoginData.email, demoLoginData.password, demoLoginData.notifier).then((data) => {
+      if (data.success) {
+        updateLoginContext(data.success);
+      }
+      else {
+        updateSnackBarMessage('An unexpected error occurred. Please try again');
+      }
+    });
+  };
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
       <NavBar />
       <Grid item xs={12} sm={8} md={7} component={Paper} className={classes.paperWrapper}>
         <Box className={classes.authWrapper}>
+          <AuthHeader linkTo="/login" asideText="Already a member?" btnText="Login" />
           <Box width="100%" maxWidth={450} p={3} alignSelf="center">
             <Grid container>
               <Grid item xs>
@@ -52,8 +70,7 @@ export default function Register(): JSX.Element {
                 </Typography>
               </Grid>
             </Grid>
-            <SignUpForm handleSubmit={handleSubmit} />
-            <AuthHeader linkTo="/login" asideText="Already a member?" btnText="Login" />
+            <SignUpForm handleSubmit={handleSubmit} handleDemoLogin={handleDemoLogin} />
           </Box>
           <Box p={1} alignSelf="center" />
         </Box>

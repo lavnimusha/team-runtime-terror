@@ -4,6 +4,7 @@ const { validateRegister, validateLogin } = require('../validate');
 const protect = require('../middleware/auth');
 const {
   registerUser,
+  loginDemoUser,
   loginUser,
   loadUser,
   logoutUser,

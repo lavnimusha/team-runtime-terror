@@ -24,9 +24,11 @@ interface Props {
       password: string;
     }>,
   ) => void;
+
+  handleDemoLogin: () => void;
 }
 
-export default function Login({ handleSubmit }: Props): JSX.Element {
+export default function Login({ handleSubmit, handleDemoLogin }: Props): JSX.Element {
   const classes = useStyles();
 
   return (
@@ -87,6 +89,9 @@ export default function Login({ handleSubmit }: Props): JSX.Element {
           <Box textAlign="center">
             <Button type="submit" size="large" variant="contained" color="secondary" className={classes.submit}>
               {isSubmitting ? <CircularProgress style={{ color: 'white' }} /> : 'Login'}
+            </Button>
+            <Button variant="contained" size="large" color="primary" className={classes.submit} onClick={handleDemoLogin}>
+              Demo User
             </Button>
           </Box>
           <div style={{ height: 95 }} />
