@@ -52,16 +52,19 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
   }
 });
 
-// @route POST /auth/demoLogin
-// @desc Login a demo user
+// @route POST /auth/login
+// @desc Login user
 // @access Public
-exports.loginDemoUser = asyncHandler(async (req, res, next) => {
-  const { email } = req.body;
-  const id = "dogLover1234";
-  const username = "doggieBoy";
-  const token = generateToken(id);
+exports.loginUser = asyncHandler(async (req, res, next) => {
+  const { email, password, notifier } = req.body;
 
-  const secondsInWeek = 604800;
+  if(notifier === "demoLogin")
+  {
+    const id = "dogLover1234";
+    const username = "doggieBoy";
+    const token = generateToken(id);
+
+    const secondsInWeek = 604800;
 
     res.cookie("token", token, {
       httpOnly: true,
@@ -75,29 +78,22 @@ exports.loginDemoUser = asyncHandler(async (req, res, next) => {
         username: username,
         email: email
       }
-    }
-  });
-})
+    }});
+  }
+  else {
+    const user = await User.findOne({ email });
 
-// @route POST /auth/login
-// @desc Login user
-// @access Public
-exports.loginUser = asyncHandler(async (req, res, next) => {
-  const { email, password } = req.body;
+    if (user && (await user.matchPassword(password))) {
+      const token = generateToken(user._id);
+      const secondsInWeek = 604800;
 
-  const user = await User.findOne({ email });
+      res.cookie("token", token, {
+        httpOnly: true,
+        maxAge: secondsInWeek * 1000
+      });
 
-  if (user && (await user.matchPassword(password))) {
-    const token = generateToken(user._id);
-    const secondsInWeek = 604800;
-
-    res.cookie("token", token, {
-      httpOnly: true,
-      maxAge: secondsInWeek * 1000
-    });
-
-    res.status(200).json({
-      success: {
+      res.status(200).json({
+        success: {
         user: {
           id: user._id,
           username: user.username,
@@ -105,9 +101,10 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
         }
       }
     });
-  } else {
-    res.status(401);
-    throw new Error("Invalid email or password");
+    } else {
+      res.status(401);
+      throw new Error("Invalid email or password");
+    }
   }
 });
 

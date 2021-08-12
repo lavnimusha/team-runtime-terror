@@ -37,11 +37,12 @@ export default function Login(): JSX.Element {
   };
 
   const handleDemoLogin = () => {
-    const data = {
+    const loginData = {
       email: 'doglover@gmail.com',
       password: 'dogLover',
+      notifier: 'demoLogin'
     };
-    demoUserLogin(data.email, data.password).then((data) => {
+    demoUserLogin(loginData.email, loginData.password, loginData.notifier).then((data) => {
       if (data.success) {
         updateLoginContext(data.success);
       }

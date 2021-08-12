@@ -12,8 +12,6 @@ const {
 
 router.route('/register').post(validateRegister, registerUser);
 
-router.route('/demoLogin').post(loginDemoUser);
-
 router.route('/login').post(validateLogin, loginUser);
 
 router.route('/user').get(protect, loadUser);
