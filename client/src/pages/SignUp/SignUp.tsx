@@ -8,7 +8,7 @@ import useStyles from './useStyles';
 import register from '../../helpers/APICalls/register';
 import SignUpForm from './SignUpForm/SignUpForm';
 import AuthHeader from '../../components/AuthHeader/AuthHeader';
-import NavBar from '../../components/NavBar/NavBar';
+import AuthNavBar from '../../components/NavBar/AuthNavBar/AuthNavBar';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
 import { demoUserLogin } from '../../helpers/APICalls/login';
@@ -58,7 +58,7 @@ export default function Register(): JSX.Element {
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <NavBar />
+      <AuthNavBar />
       <Grid item xs={12} sm={8} md={7} component={Paper} className={classes.paperWrapper}>
         <Box className={classes.authWrapper}>
           <Box width="100%" maxWidth={450} p={3} alignSelf="center">

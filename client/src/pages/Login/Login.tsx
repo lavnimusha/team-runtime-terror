@@ -8,7 +8,7 @@ import useStyles from './useStyles';
 import { login, demoUserLogin } from '../../helpers/APICalls/login';
 import LoginForm from './LoginForm/LoginForm';
 import AuthHeader from '../../components/AuthHeader/AuthHeader';
-import NavBar from '../../components/NavBar/NavBar';
+import AuthNavBar from '../../components/NavBar/AuthNavBar/AuthNavBar';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
 import { AppBar, Button } from '@material-ui/core';
@@ -55,7 +55,7 @@ export default function Login(): JSX.Element {
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <NavBar />
+      <AuthNavBar />
       <Grid item xs={12} sm={8} md={7} elevation={6} component={Paper} square className={classes.paperWrapper}>
         <Box className={classes.authWrapper}>
           <Box width="100%" maxWidth={450} p={3} alignSelf="center">

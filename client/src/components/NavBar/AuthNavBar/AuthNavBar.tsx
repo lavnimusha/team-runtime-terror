@@ -1,7 +1,7 @@
 import Button from '@material-ui/core/Button';
 import useStyles from './useStyles';
 import { AppBar, Box, Typography } from '@material-ui/core';
-import logo from '../../Images/logo.png';
+import logo from '../../../Images/logo.png';
 
 const NavBar = (): JSX.Element => {
   const classes = useStyles();
