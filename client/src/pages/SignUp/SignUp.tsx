@@ -61,7 +61,6 @@ export default function Register(): JSX.Element {
       <NavBar />
       <Grid item xs={12} sm={8} md={7} component={Paper} className={classes.paperWrapper}>
         <Box className={classes.authWrapper}>
-          <AuthHeader linkTo="/login" asideText="Already a member?" btnText="Login" />
           <Box width="100%" maxWidth={450} p={3} alignSelf="center">
             <Grid container>
               <Grid item xs>
@@ -71,6 +70,7 @@ export default function Register(): JSX.Element {
               </Grid>
             </Grid>
             <SignUpForm handleSubmit={handleSubmit} handleDemoLogin={handleDemoLogin} />
+            <AuthHeader linkTo="/login" asideText="Already a member?" btnText="Login" />
           </Box>
           <Box p={1} alignSelf="center" />
         </Box>

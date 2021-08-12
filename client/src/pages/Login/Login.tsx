@@ -58,7 +58,6 @@ export default function Login(): JSX.Element {
       <NavBar />
       <Grid item xs={12} sm={8} md={7} elevation={6} component={Paper} square className={classes.paperWrapper}>
         <Box className={classes.authWrapper}>
-          <AuthHeader linkTo="/signup" asideText="Don't have an account?" btnText="Create account" />
           <Box width="100%" maxWidth={450} p={3} alignSelf="center">
             <Grid container>
               <Grid item xs>
@@ -68,6 +67,7 @@ export default function Login(): JSX.Element {
               </Grid>
             </Grid>
             <LoginForm handleSubmit={handleSubmit} handleDemoLogin={handleDemoLogin} />
+            <AuthHeader linkTo="/signup" asideText="Don't have an account?" btnText="Create account" />
           </Box>
           <Box p={1} alignSelf="center" />
         </Box>
