@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: theme.shape.borderRadius,
     marginTop: 49,
     fontSize: 16,
-    backgroundColor: '#dc3545',
+    backgroundColor: theme.palette.secondary.main,
     fontWeight: 'bold',
   },
 }));

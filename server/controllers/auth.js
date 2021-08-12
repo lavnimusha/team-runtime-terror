@@ -83,12 +83,14 @@ exports.loginDemoUser = asyncHandler(async (req, res, next) => {
 // @desc Login user
 // @access Public
 exports.loginUser = asyncHandler(async (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, password, notifier } = req.body;
 
-  const user = await User.findOne({ email });
+  if(notifier === "demoLogin")
+  {
+    const id = "dogLover1234";
+    const username = "doggieBoy";
+    const token = generateToken(id);
 
-  if (user && (await user.matchPassword(password))) {
-    const token = generateToken(user._id);
     const secondsInWeek = 604800;
 
     res.cookie("token", token, {
@@ -99,15 +101,37 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
     res.status(200).json({
       success: {
         user: {
+        id: id,
+        username: username,
+        email: email
+      }
+    }});
+  }
+  else {
+    const user = await User.findOne({ email });
+
+    if (user && (await user.matchPassword(password))) {
+      const token = generateToken(user._id);
+      const secondsInWeek = 604800;
+
+      res.cookie("token", token, {
+        httpOnly: true,
+        maxAge: secondsInWeek * 1000
+      });
+
+      res.status(200).json({
+        success: {
+        user: {
           id: user._id,
           username: user.username,
           email: user.email
         }
       }
     });
-  } else {
-    res.status(401);
-    throw new Error("Invalid email or password");
+    } else {
+      res.status(401);
+      throw new Error("Invalid email or password");
+    }
   }
 });
 
