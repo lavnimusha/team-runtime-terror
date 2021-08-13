@@ -17,17 +17,9 @@ const requestSchema = new mongoose.Schema({
         type: Date,
         required: true,
     },
-    accepted: {
-        type: Boolean,
-        default: false,
-    },
-    declined: {
-        type: Boolean,
-        default: false,
-    },
-    paid: {
-        type: Boolean,
-        default: false,
+    status: {
+        type: String,
+        required: true,
     }
 })
 
