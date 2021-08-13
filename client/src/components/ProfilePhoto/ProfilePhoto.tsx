@@ -1,13 +1,12 @@
-import { User } from '../../interface/User';
+import { useAuth } from '../../context/useAuthContext';
 import useStyles from './useStyles';
 import { Button, Card, Typography, Avatar, CardActions, Paper } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 
-interface Props {
-  loggedInUser: User;
-}
-
-const ProfilePhoto = ({ loggedInUser }: Props): JSX.Element => {
+const ProfilePhoto = (): JSX.Element => {
   const classes = useStyles();
+  const { loggedInUser } = useAuth();
+
   return (
     <Paper elevation={5} className={classes.photoPaper}>
       <Card className={classes.photoCard}>
@@ -17,7 +16,7 @@ const ProfilePhoto = ({ loggedInUser }: Props): JSX.Element => {
 
         <Avatar
           alt="Profile Image"
-          src={`https://robohash.org/${loggedInUser.email}.png`}
+          src={`https://robohash.org/${loggedInUser!.email}.png`}
           className={classes.photoAvatar}
           variant="circle"
         />
@@ -38,7 +37,7 @@ const ProfilePhoto = ({ loggedInUser }: Props): JSX.Element => {
           </Button>
         </CardActions>
         <Typography variant="subtitle1" className={classes.photoText}>
-          <i className="fas fa-trash-alt fa-fw"></i> Delete photo
+          <DeleteIcon className={classes.deleteIcon} /> Delete photo
         </Typography>
       </Card>
     </Paper>

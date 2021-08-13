@@ -14,9 +14,7 @@ const useStyles = makeStyles((theme) => ({
 
   photoCard: {
     width: '35%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop: '2rem',
+    margin: '2rem auto auto auto',
     border: 'none',
     boxShadow: 'none',
     alignItems: 'center',
@@ -24,13 +22,11 @@ const useStyles = makeStyles((theme) => ({
     height: '60vh',
   },
   photoAvatar: {
-    marginLeft: 'auto',
-    marginRight: 'auto',
     textAlign: 'center',
     width: '168px',
     height: '168px',
     display: 'block',
-    marginTop: '3rem',
+    margin: '3rem auto auto auto',
     border: '0.5px solid grey',
   },
   buttonRoot: { color: 'red', border: '0.5px red solid' },
@@ -47,9 +43,10 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: '1.5rem',
     color: 'grey',
     width: '80%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop: '3rem',
+    margin: '3rem auto auto auto',
+  },
+  deleteIcon: {
+    marginBottom: '-0.3rem',
   },
 }));
 
