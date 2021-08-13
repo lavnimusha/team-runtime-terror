@@ -18,7 +18,7 @@ function App(): JSX.Element {
           <AuthProvider>
             <SocketProvider>
               <Switch>
-                <ProtectedRoute path="/dashboard" component={Dashboard} />
+                <ProtectedRoute exact path="/dashboard" component={Dashboard} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
                 <Route path="*">
