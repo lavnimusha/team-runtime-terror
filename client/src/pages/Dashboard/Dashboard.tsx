@@ -11,7 +11,6 @@ import ProfilePhoto from '../../components/ProfilePhoto/ProfilePhoto';
 
 export default function Dashboard(): JSX.Element {
   const classes = useStyles();
-
   const { loggedInUser } = useAuth();
   const { initSocket } = useSocket();
 
