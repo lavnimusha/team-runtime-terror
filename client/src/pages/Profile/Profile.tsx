@@ -1,8 +1,12 @@
-import { Grid, List, ListItem, ListItemText, Paper, Typography } from "@material-ui/core";
+import { Grid, List, ListItem, ListItemText, Paper } from "@material-ui/core";
 import useStyles from './useStyles';
+import { useState } from 'react';
+import MainPanel from '../../components/ProfileSettings/MainPanel/MainPanel';
 
 export default function Profile(): JSX.Element {
     const classes = useStyles();
+
+    const [ compIndex, setIndex ] = useState(0);
 
     const listText = [
         "Edit Profile",
@@ -21,7 +25,7 @@ export default function Profile(): JSX.Element {
                         <List component="nav" className={classes.menuWrapper}>
                             {listText.map((text, index) => {
                                 return(
-                                <ListItem key={index} button>
+                                <ListItem selected={index === compIndex} key={index} button onClick={() => setIndex(index)}>
                                     <ListItemText primary={text} />
                                 </ListItem>
                                 )
@@ -30,7 +34,7 @@ export default function Profile(): JSX.Element {
                     </Grid>
                     <Grid key={2} item>
                         <Paper className={classes.dataWrapper}>
-                        <Typography variant="h1"></Typography>
+                            <MainPanel panelIndex={compIndex}/>
                         </Paper>
                     </Grid>
                 </Grid>
