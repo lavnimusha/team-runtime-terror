@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema({
   register_date: {
     type: Date,
     default: Date.now
+  },
+  profile: {
+    type: Schema.Types.ObjectId,
+    ref: "Profile"
   }
 });
 
