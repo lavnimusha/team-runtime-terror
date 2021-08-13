@@ -10,6 +10,16 @@ const profileSchema =  new Schema({
         type: String,
         required: true,
     },
+    phoneNumber: {
+        type: String,
+        required: true,
+    },
+    email: {
+        type: String,
+        lowercase: true,
+        unique: true,
+        required: true
+    },
     description: {
         type: String,
         required: true,
