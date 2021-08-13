@@ -2,8 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   photoPaper: {
-    marginTop: '7rem',
-    marginLeft: '10rem',
+    margin: '7rem auto auto 10rem',
     alignContent: 'center',
     alignItems: 'center',
     paddingBottom: '2rem',
