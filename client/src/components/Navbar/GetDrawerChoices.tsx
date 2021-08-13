@@ -5,17 +5,19 @@ import useStyles from './useStyles';
 interface Props {
   LOGOUT: string;
   PROFILE: string;
+  Logout: string;
+  Profile: string;
 }
 
-const GetDrawerChoices = ({ LOGOUT, PROFILE }: Props): JSX.Element => {
+const GetDrawerChoices = ({ LOGOUT, PROFILE, Logout, Profile }: Props): JSX.Element => {
   const classes = useStyles();
   return (
     <React.Fragment>
       <Link to={LOGOUT} className={classes.menuDownButton}>
-        Log out
+        {Logout}
       </Link>
       <Link to={PROFILE} className={classes.menuDownButton}>
-        Go to profile
+        {Profile}
       </Link>
     </React.Fragment>
   );

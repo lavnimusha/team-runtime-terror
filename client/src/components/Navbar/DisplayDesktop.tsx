@@ -4,11 +4,21 @@ import useStyles from './useStyles';
 import GetMenuButtons from './GetMenuButtons';
 
 interface Props {
-  mySitter: string;
-  becomeSitter: string;
-  messages: string;
+  MY_SITTER: string;
+  BECOME_SITTER: string;
+  MESSAGE: string;
+  Mysitter: string;
+  Becomesitter: string;
+  Messages: string;
 }
-const DisplayDesktop = ({}: Props): JSX.Element => {
+const DisplayDesktop = ({
+  MY_SITTER,
+  BECOME_SITTER,
+  MESSAGE,
+  Mysitter,
+  Becomesitter,
+  Messages,
+}: Props): JSX.Element => {
   const classes = useStyles();
 
   return (
@@ -21,7 +31,14 @@ const DisplayDesktop = ({}: Props): JSX.Element => {
           </Typography>
         </Grid>
         <Grid sm={10} item container className={classes.toolbarGrid}>
-          <GetMenuButtons mySitter="My Sitters" becomeSitter="BECOME A SITTER" messages="Messages" />
+          <GetMenuButtons
+            Mysitter={Mysitter}
+            Becomesitter={Becomesitter}
+            Messages={Messages}
+            BECOME_SITTER={BECOME_SITTER}
+            MY_SITTER={MY_SITTER}
+            MESSAGE={MESSAGE}
+          />
         </Grid>
       </Grid>
     </Toolbar>

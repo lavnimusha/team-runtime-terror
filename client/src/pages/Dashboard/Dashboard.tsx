@@ -31,11 +31,16 @@ export default function Dashboard(): JSX.Element {
   return (
     <Grid container component="main" className={`${classes.root} ${classes.dashboard}`}>
       <Navbar
-        LOGOUT="logout"
-        PROFILE="profile"
-        mySitter="My Sitters"
-        becomeSitter="BECOME A SITTER"
-        messages="Messages"
+        LOGOUT="/logout"
+        PROFILE="/profile"
+        MY_SITTER="/mySitter"
+        BECOME_SITTER="/becomeSitter"
+        MESSAGE="/message"
+        Logout="Log out"
+        Profile="Profile"
+        Mysitter="My Sitters"
+        Becomesitter="BECOME A SITTER"
+        Messages="Messages"
       />
       <CssBaseline />
       <Grid item className={classes.drawerWrapper}>

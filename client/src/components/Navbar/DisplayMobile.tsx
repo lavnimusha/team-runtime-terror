@@ -8,9 +8,11 @@ import GetDrawerChoices from './GetDrawerChoices';
 interface Props {
   LOGOUT: string;
   PROFILE: string;
+  Logout: string;
+  Profile: string;
 }
 
-const DisplayMobile = ({}: Props): JSX.Element => {
+const DisplayMobile = ({ LOGOUT, PROFILE, Logout, Profile }: Props): JSX.Element => {
   const classes = useStyles();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const handleDrawerOpen = () => setDrawerOpen(true);
@@ -47,7 +49,7 @@ const DisplayMobile = ({}: Props): JSX.Element => {
           onClose: handleDrawerClose,
         }}
       >
-        <GetDrawerChoices LOGOUT="logout" PROFILE="profile" />
+        <GetDrawerChoices LOGOUT={LOGOUT} PROFILE={PROFILE} Logout={Logout} Profile={Profile} />
       </Drawer>
     </Toolbar>
   );
