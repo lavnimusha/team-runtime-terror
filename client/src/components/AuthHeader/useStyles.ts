@@ -19,7 +19,22 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     padding: '1rem 0',
   },
-  link: { textDecoration: 'none' },
+  link: { 
+    textDecoration: 'underline',
+    marginRight: 55, 
+    color: '#dc3545',
+    fontSize: 17,
+    fontWeight: 'bold',
+    marginLeft: -25,
+  },
+  linker: { 
+    textDecoration: 'underline',
+    marginRight: 110, 
+    color: '#dc3545',
+    fontSize: 17,
+    fontWeight: 'bold',
+    marginLeft: -25,
+  },
   accBtn: {
     width: 170,
     height: 54,
@@ -27,8 +42,7 @@ const useStyles = makeStyles((theme) => ({
     filter: 'drop-shadow(0px 2px 6px rgba(74,106,149,0.2))',
     backgroundColor: '#ffffff',
     color: '#3a8dff',
-    boxShadow: 'none',
-    marginRight: 35,
+    boxShadow: 'none', 
   },
 }));
 
