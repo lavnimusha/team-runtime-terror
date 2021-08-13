@@ -12,6 +12,9 @@ const logger = require("morgan");
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
 
+// Require all models
+var dataSchema = require("./models");
+
 const { json, urlencoded } = express;
 
 connectDB();
