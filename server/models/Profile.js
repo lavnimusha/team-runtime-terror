@@ -14,14 +14,17 @@ const profileSchema =  new Schema({
         type: String,
         required: true,
     },   
-    startDate: {
-        type: Date,
-        default: Date.now
-    },
-    endDate: {
-        type: Date,
-        default: Date
-    }
+    availability: new Schema({
+        startDate: {
+            type: Date,
+            default: Date.now
+        },
+        endDate: {
+            type: Date,
+            default: Date
+        },
+        daysOfWeek: [{type:String}]
+    })
 });
 
 module.exports = Profile = mongoose.model("profile", profileSchema);
