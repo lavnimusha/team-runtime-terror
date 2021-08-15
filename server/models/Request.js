@@ -7,7 +7,7 @@ const requestSchema = new mongoose.Schema({
         required: true,
     },
     sitter_id: {
-        type: Number,
+        type: [{ type: Schema.Types.ObjectId, ref: 'Profile' }],
         required: true,
     },
     start: {
