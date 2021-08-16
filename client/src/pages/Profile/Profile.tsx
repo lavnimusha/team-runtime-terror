@@ -1,5 +1,6 @@
 import { Grid, List, ListItem, ListItemText, Paper, Typography } from "@material-ui/core";
 import useStyles from './useStyles';
+import Navbar from '../../components/NavBar/Navbar';
 
 export default function Profile(): JSX.Element {
     const classes = useStyles();
@@ -15,6 +16,18 @@ export default function Profile(): JSX.Element {
 
     return(
         <Grid container className={classes.root} spacing={2}>
+            <Navbar
+                LOGOUT="/logout"
+                PROFILE="/profile"
+                MY_SITTER="/mySitter"
+                BECOME_SITTER="/becomeSitter"
+                MESSAGE="/message"
+                Logout="Log out"
+                Profile="Profile"
+                Mysitter="My Sitters"
+                Becomesitter="BECOME A SITTER"
+                Messages="Messages"
+            />
             <Grid item xs={12}>
                 <Grid container>
                     <Grid key={1} item>
