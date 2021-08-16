@@ -1,18 +1,26 @@
 const Profile = require("../models/Profile");
 const asyncHandler = require("express-async-handler");
+const generateToken = require("../utils/generateToken");
 
 // @route POST /profiles
 // @desc Given parameters passed in create a profile
 // @access Private
 
-exports.Profiles = asyncHandler(async (req, res, next) => {
-    const { firstname, lastname, description, startdate, enddate } = req.body;
+ exports.createProfile = asyncHandler(async (req, res, next) => {
+
+    const { firstName, lastName, description, email, phoneNumber, availability:{startDate,endDate,daysOfWeek} } = req.query;
+    
     const profile = await Profile.create({
-        firstname,
-        lastname,
+        firstName,
+        lastName,
         description,
-        startdate,
-        enddate
+        email,
+        phoneNumber,
+        availability:{
+          startDate,
+          endDate,
+          daysOfWeek: []
+      }
       });
     
       if (profile) {
@@ -28,11 +36,16 @@ exports.Profiles = asyncHandler(async (req, res, next) => {
           success: {
             user: {
               id: profile._id,
-              firstname: profile.firstname,
-              lastname: profile.lastname,
+              ffirstName: profile.firstName,
+              lastName: profile.lastName,
               description: profile.description,
-              startdate: profile.startdate,
-              enddate: profile.enddate
+              email: profile.email,
+              phoneNumber: profile.phoneNumber,
+              availability:{
+                startDate: profile.availability.startDate,
+                endDate: profile.availability.endDate,
+                daysOfWeek: []
+            }
             }
           }
         });
@@ -41,15 +54,15 @@ exports.Profiles = asyncHandler(async (req, res, next) => {
         throw new Error("Invalid user data");
       }
 })
-
+ 
 
 // @route GET /profiles
 // @desc Search for profiles with query id
 // @access Private
 
-exports.Profiles = asyncHandler(async (req, res, next) => {
+exports.searchProfiles = asyncHandler(async (req, res, next) => {
     const profile_id = req.query._id;
-  
+   
     let profiles;
     if (profile_id) {
       profiles = await Profile.find({
@@ -69,7 +82,7 @@ exports.Profiles = asyncHandler(async (req, res, next) => {
 // @desc Get a list of profiles
 // @access Private
 
-exports.listOfProfiles = asyncHandler(async (req, res, next) => {
+exports.listAllProfiles = asyncHandler(async (req, res, next) => {
     
     let profiles;
     
@@ -87,29 +100,25 @@ exports.listOfProfiles = asyncHandler(async (req, res, next) => {
 // @desc Update profile for given id
 // @access Private
 
-exports.updatePofile = (req, res, next) => {
-    let { firstname, lastname, description, startdate, lastdate } = req.body;
+exports.updateProfile = asyncHandler( async(req, res, next) => {
+  
+  const { firstName, lastName, description, email, phoneNumber } = req.query;
+  const profile_id = req.query._id;
 
-    let profile;
-    let profile_id = req.query.id;
-    
-    if (profile_id) {
-      profile = await Profile.findOne({
-        _id: profile_id
-      });
-    } 
-    // populating only updated fields
-    let updatedParams = { firstname: firstname, lastname: lastname, description: description, startdate: startdate, lastdate: lastdate}
-        Object.keys(updatedParams).forEach(key => updatedParams[key] === undefined && delete updatedParams[key])
-
-        
-    // Override the current user data with updated one
-    profile = Object.assign(profile, updatedParams);
-
-    profile.save((err, savedProfile) => {
-        if (err) {
-            return next(err);
+    const profile = Profile.findOne({_id: profile_id}, function(err) {
+        if(err) {
+            res.status(404).send("Request not found!!");
         }
-        res.json(savedProfile.toJSON());
-    });
-};
+
+    })
+
+    if(profile) {
+        await Profile.updateMany({ _id: profile_id }, { firstName: req.query.firstName, lastName: req.query.lastName, description: req.query.description, email: req.query.email, phoneNumber: req.query.phoneNumber }, function(err) {
+            if(err) {
+                res.status(501).send("Internal Server Error!");
+            }
+
+            res.status(200).send("Request updated successfully");
+        })
+    }
+});
