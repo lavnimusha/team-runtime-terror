@@ -27,11 +27,13 @@ const profileSchema =  new Schema({
     availability: new Schema({
         startDate: {
             type: Date,
-            default: Date.now
+            default: Date.now,
+            required: false
         },
         endDate: {
             type: Date,
-            default: Date
+            default: Date,
+            required: false
         },
         daysOfWeek: [{type:String}]
     })

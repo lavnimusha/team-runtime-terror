@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
     default: Date.now
   },
   profile: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Profile"
   }
 });
