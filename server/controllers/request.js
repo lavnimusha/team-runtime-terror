@@ -7,9 +7,9 @@ const asyncHandler = require("express-async-handler");
 @access private
 */
 exports.getRequests = asyncHandler( async( req, res, next ) => {
-    const  user_id  = req.query.user_id;
+    const  user_id  = req.user.id;
     
-    const user = await Request.find({ user_id: user_id }, function(err) {
+    const requests = await Request.find({ user_id: user_id }, function(err) {
         if(err) {
             res.status(404).send("User not found!!");
         }
@@ -18,7 +18,7 @@ exports.getRequests = asyncHandler( async( req, res, next ) => {
     if(user) {
         res.status(200).json({
             success: {
-                data: user,
+                data: requests,
                 message: "Requests fetched successfully"
             }
         })
@@ -54,10 +54,10 @@ exports.addRequest = asyncHandler( async( req, res, next) => {
         })
 
         if(request) {
-            res.status(200).json({
+            res.status(201).json({
                 success: {
-                  user: {
-                    id: request._id,
+                  request: {
+                    request_id: request._id,
                     username: user.firstName,
                     email: user.email
                   },
@@ -66,7 +66,7 @@ exports.addRequest = asyncHandler( async( req, res, next) => {
             });
         }
         else {
-            res.status(501);
+            res.status(500);
             throw new Error("Internal Server Error");
         }
     }
@@ -90,7 +90,7 @@ exports.updateRequest = asyncHandler( async( req, res ) => {
     if(request) {
         await Request.updateOne({ _id: request_id }, { status: status }, function(err) {
             if(err) {
-                res.status(501).send("Internal Server Error!");
+                res.status(500).send("Internal Server Error!");
             }
 
             res.status(200).send("Request updated successfully");
