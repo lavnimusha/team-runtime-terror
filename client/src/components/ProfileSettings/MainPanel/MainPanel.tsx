@@ -4,21 +4,28 @@ import Payment from "../Payment/Payment";
 import ProfilePhoto from "../ProfilePhoto/ProfilePhoto";
 import Security from "../Security/Security";
 import Settings from "../Settings/Settings";
+import { useParams } from 'react-router-dom';
 
-const MainPanel = (panelIndex: any): JSX.Element => {
+const MainPanel = (): JSX.Element => {
+
+    const { componentId } = useParams<{ componentId: string }>();
 
     const menuItems = [
-        <EditProfile key={panelIndex} />,
-        <ProfilePhoto key={panelIndex} />,
-        <Availability key={panelIndex} />,
-        <Payment key={panelIndex} />,
-        <Security key={panelIndex} />,
-        <Settings key={panelIndex} />,
+        { id: "editProfile" , value: <EditProfile /> },
+        { id: "profilePhoto" , value: <ProfilePhoto /> },
+        { id: "availability", value: <Availability /> },
+        { id: "payment", value: <Payment /> },
+        { id: "security", value: <Security /> },
+        { id: "settings", value: <Settings /> },
     ]
 
     return(
         <>
-            {menuItems[panelIndex.panelIndex]}
+            {
+               menuItems.filter(e => e.id === componentId).map(element => (
+                   element.value
+               ))
+            }
         </>
     );
 }
