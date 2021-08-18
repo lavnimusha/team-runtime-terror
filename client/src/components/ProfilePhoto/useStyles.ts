@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '3rem auto auto auto',
     border: '0.5px solid grey',
   },
+
   buttonRoot: { color: 'red', border: '0.5px red solid' },
   photoButton: {
     padding: theme.spacing(2),

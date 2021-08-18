@@ -5,10 +5,8 @@ import useStyles from './useStyles';
 import { useAuth } from '../../context/useAuthContext';
 import { useSocket } from '../../context/useSocketContext';
 import { useHistory } from 'react-router-dom';
-import ChatSideBanner from '../../components/ChatSideBanner/ChatSideBanner';
 import { useEffect } from 'react';
-// import ProfilePhoto from '../../components/ProfilePhoto/ProfilePhoto';
-import Calendar from '../../components/ManageBooking/Calendar/Calendar';
+import CalendarDisplay from '../../components/ManageBooking/Calendar/CalendarDisplay';
 import BookingList from '../../components/ManageBooking/BookingList/BookingList';
 
 export default function Dashboard(): JSX.Element {
@@ -33,9 +31,9 @@ export default function Dashboard(): JSX.Element {
     <Grid container component="main" className={`${classes.root} ${classes.dashboard}`}>
       <CssBaseline />
       <Grid item className={classes.drawerWrapper}>
-        <BookingList loggedInUser={loggedInUser} />
+        <BookingList />
       </Grid>
-      <Calendar />
+      <CalendarDisplay />
     </Grid>
   );
 }
