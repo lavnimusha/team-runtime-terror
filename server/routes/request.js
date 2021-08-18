@@ -8,10 +8,10 @@ const {
     updateRequest,
 } = require('../controllers/request');
 
-router.route('/getRequests').get(protect, getRequests);
+router.route('/get-requests').get(protect, getRequests);
 
-router.route('/postRequest').post(protect, addRequest);
+router.route('/post-request').post(protect, addRequest);
 
-router.route('/updateRequest/:request_id').put(protect, updateRequest);
+router.route('/update-request/:request_id').put(protect, updateRequest);
 
 module.exports = router;

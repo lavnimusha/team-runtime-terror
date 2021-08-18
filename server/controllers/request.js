@@ -1,17 +1,24 @@
 const Request = require("../models/Request");
+const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
 
 /*
-@route GET /requests/getRequests
+@route GET /requests/get-requests
 @desc for fetching all the requests for a particular user
 @access private
 */
 exports.getRequests = asyncHandler( async( req, res, next ) => {
     const  user_id  = req.user.id;
-    
-    const requests = await Request.find({ user_id: user_id }, function(err) {
+
+    const user = await User.find({ _id: user_id}, function(err) {
         if(err) {
             res.status(404).send("User not found!!");
+        }
+    });
+    
+    const requests = await Request.find({ owner_id: user[0].profile[0] }, function(err) {
+        if(err) {
+            res.status(404).send("No requests found for this user!!");
         }
     })
 
@@ -26,7 +33,7 @@ exports.getRequests = asyncHandler( async( req, res, next ) => {
 })
 
 /*
-@route POST /requests/postRequest
+@route POST /requests/post-request
 @desc for adding a new request
 @access private
 */
@@ -73,7 +80,7 @@ exports.addRequest = asyncHandler( async( req, res, next) => {
 })
 
 /*
-@route PUT /requests/postRequest/:request_id
+@route PUT /requests/update-request/:request_id
 @desc for updating an existing request
 @access private
 */
