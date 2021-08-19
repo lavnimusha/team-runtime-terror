@@ -10,13 +10,13 @@ const asyncHandler = require("express-async-handler");
 exports.getRequests = asyncHandler( async( req, res, next ) => {
     const  user_id  = req.user.id;
 
-    const user = await User.find({ _id: user_id}, function(err) {
+    const user = await User.findOne({ _id: user_id}, function(err) {
         if(err) {
             res.status(404).send("User not found!!");
         }
     });
     
-    const requests = await Request.find({ owner_id: user[0].profile[0] }, function(err) {
+    const requests = await Request.findOne({ owner_id: user.profile[0] }, function(err) {
         if(err) {
             res.status(404).send("No requests found for this user!!");
         }
