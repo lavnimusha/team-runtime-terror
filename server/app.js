@@ -11,6 +11,7 @@ const logger = require("morgan");
 
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
+const requestRouter = require("./routes/request");
 const profileRouter = require("./routes/profile");
 
 // Require all models
@@ -47,6 +48,7 @@ app.use((req, res, next) => {
 
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
+app.use("/requests", requestRouter);
 app.use("/profiles", profileRouter);
 
 if (process.env.NODE_ENV === "production") {

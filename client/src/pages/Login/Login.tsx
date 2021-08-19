@@ -5,11 +5,14 @@ import Grid from '@material-ui/core/Grid';
 import { FormikHelpers } from 'formik';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
-import login from '../../helpers/APICalls/login';
+import { login, demoUserLogin } from '../../helpers/APICalls/login';
 import LoginForm from './LoginForm/LoginForm';
 import AuthHeader from '../../components/AuthHeader/AuthHeader';
+import AuthNavBar from '../../components/NavBar/AuthNavBar/AuthNavBar';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
+import { AppBar, Button } from '@material-ui/core';
+import logo from '../../Images/logo.png';
 
 export default function Login(): JSX.Element {
   const classes = useStyles();
@@ -36,21 +39,38 @@ export default function Login(): JSX.Element {
     });
   };
 
+  const handleDemoLogin = () => {
+    const loginData = {
+      email: 'doglover@gmail.com',
+      password: 'dogLover',
+      notifier: 'demoLogin'
+    };
+    demoUserLogin(loginData.email, loginData.password, loginData.notifier).then((data) => {
+      if (data.success) {
+        updateLoginContext(data.success);
+      }
+      else {
+        updateSnackBarMessage('An unexpected error occurred. Please try again');
+      }
+    });
+  };
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <Grid item xs={12} sm={8} md={7} elevation={6} component={Paper} square>
+      <AuthNavBar />
+      <Grid item xs={12} sm={8} md={7} elevation={6} component={Paper} square className={classes.paperWrapper}>
         <Box className={classes.authWrapper}>
-          <AuthHeader linkTo="/signup" asideText="Don't have an account?" btnText="Create account" />
           <Box width="100%" maxWidth={450} p={3} alignSelf="center">
             <Grid container>
               <Grid item xs>
-                <Typography className={classes.welcome} component="h1" variant="h5">
+                <Typography className={classes.welcome} component="h1" variant="h5" align="center">
                   Welcome back!
                 </Typography>
               </Grid>
             </Grid>
-            <LoginForm handleSubmit={handleSubmit} />
+            <LoginForm handleSubmit={handleSubmit} handleDemoLogin={handleDemoLogin} />
+            <AuthHeader linkTo="/signup" asideText="Don't have an account?" btnText="Create account" />
           </Box>
           <Box p={1} alignSelf="center" />
         </Box>
