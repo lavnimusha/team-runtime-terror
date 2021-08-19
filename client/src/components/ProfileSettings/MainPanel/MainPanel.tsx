@@ -10,21 +10,29 @@ const MainPanel = (): JSX.Element => {
 
     const { componentId } = useParams<{ componentId: string }>();
 
-    const menuItems = [
-        { id: "editProfile" , value: <EditProfile /> },
-        { id: "profilePhoto" , value: <ProfilePhoto /> },
-        { id: "availability", value: <Availability /> },
-        { id: "payment", value: <Payment /> },
-        { id: "security", value: <Security /> },
-        { id: "settings", value: <Settings /> },
-    ]
+    function renderComponent(param: string) {
+        switch(param) {
+            case 'edit-profile':
+                return <EditProfile />
+            case 'profile-photo':
+                return <ProfilePhoto />
+            case 'availability':
+                return <Availability />
+            case 'payment':
+                return <Payment />
+            case 'security':
+                return <Security />
+            case 'settings':
+                return <Settings />
+            default:
+                return <EditProfile />
+        }
+    }
 
     return(
         <>
             {
-               menuItems.filter(e => e.id === componentId).map(element => (
-                   element.value
-               ))
+                renderComponent(componentId)
             }
         </>
     );
