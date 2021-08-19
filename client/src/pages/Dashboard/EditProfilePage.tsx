@@ -217,12 +217,13 @@ const EditProfile = () => {
                       <div>{formik.errors.phoneNumber}</div>
                     ) : null}
                   </Grid>
-                  {/* <Grid item xs={3}>
+                  <Grid item xs={3}>
                     <Button variant="outlined" color="secondary">
                       {' '}
                       ADD NUMBER
                     </Button>
-                  </Grid> */}
+                  </Grid>
+                  {/*TODO add functionality later */}
                 </Grid>
 
                 <Grid container spacing={2} className={classes.gridcontainer}>
