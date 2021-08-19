@@ -24,6 +24,11 @@ const profileSchema =  new Schema({
         type: String,
         required: true,
     },   
+    filePath: {
+        type: String,
+        required: true,
+        unique: true,
+    },
     availability: new Schema({
         startDate: {
             type: Date,
