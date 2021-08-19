@@ -21,7 +21,6 @@ const theme = {
 };
 
 const EditProfile = () => {
-  /* let [ phone, setPhoneNumber ] = useState(''); */
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       paper: {
@@ -55,7 +54,7 @@ const EditProfile = () => {
         fontWeight: 550,
       },
       phone: {
-        /* padding: '3px', */
+        //TODO add padding or margin later
       },
     }),
   );
