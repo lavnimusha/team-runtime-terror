@@ -18,6 +18,11 @@ const useStyles = makeStyles((theme) => ({
         margin: 60,
         boxShadow: '1px 1px 1px 1px',
     },
+    menuNav: {
+        textDecoration: 'none',
+        backgroundColor: theme.palette.secondary.main,
+        color: 'black',
+    },
 }));
 
 export default useStyles;

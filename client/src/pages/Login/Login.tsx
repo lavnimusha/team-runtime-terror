@@ -49,6 +49,9 @@ export default function Login(): JSX.Element {
       if (data.success) {
         updateLoginContext(data.success);
       }
+      else {
+        updateSnackBarMessage('An unexpected error occurred. Please try again');
+      }
     });
   };
 
