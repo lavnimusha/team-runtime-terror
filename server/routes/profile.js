@@ -11,6 +11,6 @@ router.route("/list").get(protect, listAllProfiles);
 
 router.route("/update").post(protect, updateProfile);
 
-router.route("/upload").post(protect, uploadImage);
+router.route("/profile-photo").post(uploadImage);
 
 module.exports = router;

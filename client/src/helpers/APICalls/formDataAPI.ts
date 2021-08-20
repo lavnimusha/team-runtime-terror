@@ -4,7 +4,7 @@ const formDataAPI = async (file: any) => {
   const formData = new FormData();
   formData.append('file', file);
   try {
-    const res = await axios.post('http://localhost:3001/upload', formData, {
+    const res = await axios.post('http://localhost:3001/profile/profile-photo', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

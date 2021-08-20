@@ -47,7 +47,7 @@ export default function Dashboard(): JSX.Element {
       <Grid item className={classes.drawerWrapper}>
         <ChatSideBanner loggedInUser={loggedInUser} />
       </Grid>
-      <ProfilePhoto />
+      {/* <ProfilePhoto /> */}
     </Grid>
   );
 }

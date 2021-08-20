@@ -24,12 +24,10 @@ const uploadS3 = multer({
       cb(null, { fieldname: file.fieldname });
     },
     key: (req, file, cb) => {
-      console.log(path.extname(file.originalname));
       cb(null, new Date().toISOString() + "-" + file.originalname);
     },
   }),
 });
-
 
 // @route POST /profiles
 // @desc Given parameters passed in create a profile
@@ -65,7 +63,7 @@ const uploadS3 = multer({
           success: {
             user: {
               id: profile._id,
-              ffirstName: profile.firstName,
+              firstName: profile.firstName,
               lastName: profile.lastName,
               description: profile.description,
               email: profile.email,
@@ -153,12 +151,14 @@ exports.updateProfile = asyncHandler( async(req, res, next) => {
 });
 
 exports.uploadImage =
-  (uploadS3.single("file"),
+  asyncHandler(( uploadS3.single("file"),
   async (req, res) => {
+     
+    console.log("req.body is ", req.body)
     if (req.files.file === null) {
       return res.status(400).json({ msg: "no file is uploaded" });
     }
-
+    
     const uploadedFile = req.files.file;
 
     const file = req.files.file;
@@ -204,4 +204,4 @@ exports.uploadImage =
       console.log(err);
       return res.status(500).send(err);
     }
-  });
+  }));
