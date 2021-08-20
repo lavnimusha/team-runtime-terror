@@ -4,7 +4,7 @@ import { theme } from '../../../themes/theme';
 const useStyles = makeStyles((theme: Theme) => ({ 
     root: {
         flexGrow: 1,
-        width: '80%',
+        width: '82%',
         margin: 'auto',
         paddingTop: 50,
     },

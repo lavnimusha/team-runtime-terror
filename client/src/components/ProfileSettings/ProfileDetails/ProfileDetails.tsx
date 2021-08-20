@@ -27,61 +27,60 @@ const ProfileDetails = (): JSX.Element => {
                 Messages="Messages"
             />
             <Grid item xs={12}>
-                <Grid container>
-                    <Box display="flex" flexDirection="row">
-                        <Grid key={1} item>
-                            <Paper elevation={12} className={classes.profileWrapper}> 
-                                <Card className={classes.cardWrapper}>
-                                    <CardActionArea>
-                                        <CardMedia className={classes.cardImage} component="img" alt="profile details img" height="250" 
-                                        image={profCover} />
-                                        <Avatar className={classes.cardAvatar} alt="Remy Sharp" src={profimg} />
-                                    </CardActionArea>
-                                    <CardContent className={classes.contentWrapper}>
-                                        <Typography align="center" variant="h4">Norma Byers</Typography>
-                                        <Typography align="center" gutterBottom variant="body1">Loving Pet Sitter</Typography>
-                                        <Typography align="center" gutterBottom variant="body2">
-                                            <LocationOnIcon className={classes.locationIcon} color="secondary" fontSize="small"/>Toronto, Ontario
-                                        </Typography>
-                                        <Typography gutterBottom variant="h4">About me</Typography>
-                                        <Typography align="left" gutterBottom variant="subtitle1" component="h2">
-                                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum nemo culpa dolore unde illum in quam rerum repellat. Sequi culpa atque,quam laboriosam minus possimus assumenda doloribus distinctio maxime nesciunt!
-                                        </Typography>
-                                        <Box display="flex" p={2} flexDirection="row" flexBasis="1">
-                                            <Avatar className={classes.thumbImages} variant="square" alt="Remy Sharp" src={doggo}/>
-                                            <Avatar className={classes.thumbImages} variant="square" alt="Remy Sharp" src={doggo1}/>
-                                        </Box>
-                                    </CardContent>
-                                </Card>
-                            </Paper>
-                        </Grid>
-
-                        <Grid key={2} item>
-                            <Paper elevation={12} className={classes.availWrapper}>
-                                <Box p={5}>
-                                    <Typography gutterBottom align="center" variant="h4">$14/hr</Typography>
-                                    <Typography align="center">
-                                        <Rating name="simple-controlled" />
+                <Grid container direction="row">
+                    <Grid item>
+                        <Paper elevation={12} className={classes.profileWrapper}> 
+                            <Card className={classes.cardWrapper}>
+                                <CardActionArea>
+                                    <CardMedia className={classes.cardImage} component="img" alt="profile details img" height="250" 
+                                    image={profCover} />
+                                    <Avatar className={classes.cardAvatar} alt="Remy Sharp" src={profimg} />
+                                </CardActionArea>
+                                <CardContent className={classes.contentWrapper}>
+                                    <Typography align="center" variant="h4">Norma Byers</Typography>
+                                    <Typography align="center" gutterBottom variant="body1">Loving Pet Sitter</Typography>
+                                    <Typography align="center" gutterBottom variant="body2">
+                                        <LocationOnIcon className={classes.locationIcon} color="secondary" fontSize="small"/>Toronto, Ontario
                                     </Typography>
-                                    <form>
-                                        <Box p={4}>
-                                            <Box>    
-                                                <Typography variant="caption" align="left">DROP IN</Typography>
-                                                <TextField id="datetime-local" type="datetime-local" className={classes.dateInput} />
-                                            </Box>
-                                           <Box mt={2}>
-                                                <Typography variant="caption" align="left">DROP OFF</Typography>
-                                                <TextField id="datetime-local" type="datetime-local" className={classes.dateInput} />
-                                           </Box>
-                                            <Box mt={5} ml={7}>
-                                                <Button variant="contained" color="secondary" size="large">SEND REQUEST</Button>
-                                            </Box>      
+                                    <Typography gutterBottom variant="h4">About me</Typography>
+                                    <Typography align="left" gutterBottom variant="subtitle1" component="h2">
+                                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum nemo culpa dolore unde illum in quam rerum repellat. Sequi culpa atque,quam laboriosam minus possimus assumenda doloribus distinctio maxime nesciunt!
+                                    </Typography>
+                                    <Box display="flex" p={2} flexDirection="row" flexBasis="1">
+                                        <Avatar className={classes.thumbImages} variant="square" alt="Remy Sharp" src={doggo}/>
+                                        <Avatar className={classes.thumbImages} variant="square" alt="Remy Sharp" src={doggo1}/>
+                                    </Box>
+                                </CardContent>
+                            </Card>
+                        </Paper>
+                    </Grid>
+
+                    <Grid item>
+                        <Paper elevation={12} className={classes.availWrapper}>
+                            <Box p={5}>
+                                <Typography gutterBottom align="center" variant="h4">$14/hr</Typography>
+                                <Typography align="center">
+                                    <Rating name="simple-controlled" />
+                                </Typography>
+                                {/* HANDLING FORMDATA YET TO BE IMPLEMENTED */}
+                                <form>
+                                    <Box p={4}>
+                                        <Box>    
+                                            <Typography variant="caption" align="left">DROP IN</Typography>
+                                            <TextField id="datetime-local" type="datetime-local" className={classes.dateInput} />
                                         </Box>
-                                    </form>
-                                </Box>
-                            </Paper>
-                        </Grid>
-                    </Box>
+                                        <Box mt={2}>
+                                            <Typography variant="caption" align="left">DROP OFF</Typography>
+                                            <TextField id="datetime-local" type="datetime-local" className={classes.dateInput} />
+                                        </Box>
+                                        <Box mt={5} ml={7}>
+                                            <Button variant="contained" color="secondary" size="large">SEND REQUEST</Button>
+                                        </Box>      
+                                    </Box>
+                                </form>
+                            </Box>
+                        </Paper>
+                    </Grid>
                 </Grid>
             </Grid>
         </Grid>
