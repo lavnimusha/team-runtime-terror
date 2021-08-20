@@ -62,6 +62,7 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
   {
     const id = "dogLover1234";
     const username = "doggieBoy";
+    const profile_id = "6118be3d22474d0edc64a1a3";
     const token = generateToken(id);
 
     const secondsInWeek = 604800;
@@ -76,7 +77,8 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
         user: {
         id: id,
         username: username,
-        email: email
+        email: email,
+        profileId: profile_id
       }
     }});
   }

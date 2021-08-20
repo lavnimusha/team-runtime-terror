@@ -7,10 +7,35 @@ import profCover from '../../../Images/profcover.jpg';
 import profimg from '../../../Images/profimg.jpg';
 import doggo from '../../../Images/dog1.jpg';
 import doggo1 from '../../../Images/dog2.jpg';
+import loading from '../../../Images/loading.gif';
+import { useState, useEffect } from "react";
+import  getProfileDetails  from '../../../helpers/APICalls/profile';
+import { useAuth } from "../../../context/useAuthContext";
 
 const ProfileDetails = (): JSX.Element => {
 
     const classes = useStyles();
+
+    const { loggedInUser } = useAuth();
+
+    const [ data, setData ] = useState<any>();
+
+    useEffect(() => {
+        getProfileDetails(loggedInUser!.profileId)
+        .then((profileData) => {
+            setData(profileData.profiles[0])
+        })
+    })
+
+    if(!data) {
+        return(
+            <>  
+            <Box display="flex" mt={30} justifyContent="center">
+                <img src={loading} style={{alignSelf: 'center'}}  alt="loading image" /> 
+            </Box>
+        </>
+        )
+    }
 
     return(
         <Grid container className={classes.root}>
@@ -38,14 +63,14 @@ const ProfileDetails = (): JSX.Element => {
                                         <Avatar className={classes.cardAvatar} alt="Remy Sharp" src={profimg} />
                                     </CardActionArea>
                                     <CardContent className={classes.contentWrapper}>
-                                        <Typography align="center" variant="h4">Norma Byers</Typography>
+                                        <Typography align="center" variant="h4">{data.firstName} {data.lastName}</Typography>
                                         <Typography align="center" gutterBottom variant="body1">Loving Pet Sitter</Typography>
                                         <Typography align="center" gutterBottom variant="body2">
                                             <LocationOnIcon className={classes.locationIcon} color="secondary" fontSize="small"/>Toronto, Ontario
                                         </Typography>
                                         <Typography gutterBottom variant="h4">About me</Typography>
                                         <Typography align="left" gutterBottom variant="subtitle1" component="h2">
-                                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum nemo culpa dolore unde illum in quam rerum repellat. Sequi culpa atque,quam laboriosam minus possimus assumenda doloribus distinctio maxime nesciunt!
+                                            {data.description}
                                         </Typography>
                                         <Box display="flex" p={2} flexDirection="row" flexBasis="1">
                                             <Avatar className={classes.thumbImages} variant="square" alt="Remy Sharp" src={doggo}/>
