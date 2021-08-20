@@ -60,18 +60,18 @@ const ProfileDetails = (): JSX.Element => {
                             <Box p={5}>
                                 <Typography gutterBottom align="center" variant="h4">$14/hr</Typography>
                                 <Typography align="center">
-                                    <Rating name="simple-controlled" />
+                                    <Rating name="read-only" readOnly />
                                 </Typography>
                                 {/* HANDLING FORMDATA YET TO BE IMPLEMENTED */}
                                 <form>
                                     <Box p={4}>
                                         <Box>    
                                             <Typography variant="caption" align="left">DROP IN</Typography>
-                                            <TextField id="datetime-local" type="datetime-local" className={classes.dateInput} />
+                                            <TextField id="datetime-dropin" type="datetime-local" className={classes.dateInput} />
                                         </Box>
                                         <Box mt={2}>
                                             <Typography variant="caption" align="left">DROP OFF</Typography>
-                                            <TextField id="datetime-local" type="datetime-local" className={classes.dateInput} />
+                                            <TextField id="datetime-dropoff" type="datetime-local" className={classes.dateInput} />
                                         </Box>
                                         <Box mt={5} ml={7}>
                                             <Button variant="contained" color="secondary" size="large">SEND REQUEST</Button>
