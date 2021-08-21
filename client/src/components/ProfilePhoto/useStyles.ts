@@ -33,6 +33,27 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     fontWeight: 700,
   },
+<<<<<<< HEAD
+=======
+  form: {
+    width: '100%',
+  },
+
+  photoLabel: {
+    padding: theme.spacing(2),
+    fontWeight: 700,
+    color: 'red',
+    border: '0.5px red solid',
+    borderRadius: '4px',
+  },
+  photoInput: {
+    padding: theme.spacing(2),
+    fontWeight: 700,
+    color: 'red',
+    border: '0.5px red solid',
+    display: 'none',
+  },
+>>>>>>> ae795a08e4f75fa7bbf9a612ce4f81bd52d16c94
   photoHeader: {
     fontWeight: 700,
     fontSize: '2rem',
