@@ -1,15 +1,16 @@
+import React, { Component } from 'react';
 import { Grid, Avatar, Box } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import SettingsIcon from '@material-ui/icons/Settings';
 import useStyles from './useStyles';
-import { useAuth } from '../../../context/useAuthContext';
-import BookingGrid from './BookingGrid';
+import { useAuth } from '../../../../context/useAuthContext';
+import BookingItem from './BookingItem';
+import mockBookings from './mockBooking';
 
 const BookingList = (): JSX.Element => {
   const classes = useStyles();
   const { loggedInUser } = useAuth();
-  console.log(loggedInUser);
   return (
     <Box>
       <Paper elevation={3} className={classes.paper}>
@@ -44,17 +45,31 @@ const BookingList = (): JSX.Element => {
           CURRENT BOOKINGS:
         </Typography>
         <Grid className={classes.overflowGrid}>
-          <BookingGrid status="ACCEPTED" date="8 April 2020, 7-9 PM" />
-          <BookingGrid status="ACCEPTED" date="21 March 2020, 3-10 PM" />
+          {mockBookings[0].map((booking) => {
+            return (
+              <BookingItem
+                key={booking.id}
+                status={booking.status}
+                date={booking.date}
+                ownerName={booking.ownerName}
+                imageSrc={booking.imageSrc}
+              />
+            );
+          })}
           <Typography gutterBottom variant="h6" className={classes.bookingText}>
             PAST BOOKINGS:
           </Typography>
-          <BookingGrid status="ACCEPTED" date="8 April 2020, 7-9 PM" />
-          <BookingGrid status="DECLINED" date="30 March 2020, 8-12 AM" />
-          <BookingGrid status="ACCEPTED" date="21 March 2020, 3-10 PM" />
-          <BookingGrid status="DECLINED" date="8 April 2020, 7-9 PM" />
-          <BookingGrid status="ACCEPTED" date="30 March 2020, 8-12 AM" />
-          <BookingGrid status="DECLINED" date="21 March 2020, 3-10 PM" />
+          {mockBookings[1].map((booking) => {
+            return (
+              <BookingItem
+                key={booking.id}
+                status={booking.status}
+                date={booking.date}
+                ownerName={booking.ownerName}
+                imageSrc={booking.imageSrc}
+              />
+            );
+          })}
         </Grid>
       </Paper>
     </Box>

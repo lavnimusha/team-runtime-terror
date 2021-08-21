@@ -1,20 +1,20 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  CalendarPaper: {
-    margin: '7rem auto auto 10rem',
+  bookingContainer: {
+    margin: '12rem 0rem 0rem 0rem',
     alignContent: 'center',
     alignItems: 'center',
     paddingBottom: '2rem',
     textAlign: 'center',
-    width: '33%',
-    height: '60vh',
+    width: '100vw',
+    height: '55vh',
+    display: 'flex',
+    verticalAlign: 'top',
   },
-
-  calendarClass: {
-    // height: '100%',
-    // width: '100%',
-    margin: '3rem',
+  calendar: {
+    marginTop: '0rem',
+    paddingTop: '0rem',
   },
 }));
 

@@ -3,17 +3,18 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import SettingsIcon from '@material-ui/icons/Settings';
 import useStyles from './useStyles';
-import { useAuth } from '../../../context/useAuthContext';
+import { useAuth } from '../../../../context/useAuthContext';
 
 interface Props {
   status: string;
   date: string;
+  imageSrc: string;
+  ownerName: string;
 }
 
-const BookingGrid = ({ status, date }: Props): JSX.Element => {
+const BookingItem = ({ status, date, imageSrc, ownerName }: Props): JSX.Element => {
   const classes = useStyles();
   const { loggedInUser } = useAuth();
-  console.log(loggedInUser);
   return (
     <Paper elevation={3} className={classes.internalPaper}>
       <Grid container spacing={2} className={classes.internalGrid}>
@@ -24,13 +25,8 @@ const BookingGrid = ({ status, date }: Props): JSX.Element => {
             </Typography>
           </Grid>
           <Grid item className={classes.avatarGrid}>
-            <Avatar
-              alt="Profile Image"
-              src={`https://robohash.org/${loggedInUser!.email}.png`}
-              variant="circle"
-              className={classes.photoAvatar}
-            />
-            <Typography className={classes.userName}>{loggedInUser!.email}</Typography>
+            <Avatar alt="Profile Image" src={imageSrc} variant="circle" className={classes.photoAvatar} />
+            <Typography className={classes.userName}>{ownerName}</Typography>
           </Grid>
         </Grid>
         <Grid item className={classes.statusGrid} alignContent="center">
@@ -42,4 +38,4 @@ const BookingGrid = ({ status, date }: Props): JSX.Element => {
   );
 };
 
-export default BookingGrid;
+export default BookingItem;

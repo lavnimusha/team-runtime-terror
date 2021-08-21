@@ -3,9 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
-
-    maxWidth: 600,
+    maxWidth: 450,
     margin: '2rem',
+    marginLeft: '0rem',
   },
   image: {
     width: 128,
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   internalGrid: {
     borderRadius: '0.3px',
     margin: '0rem 0rem 2rem 3rem',
-    width: '90%',
+    width: '85%',
   },
   avatarGrid: {
     verticalAlign: 'middle',

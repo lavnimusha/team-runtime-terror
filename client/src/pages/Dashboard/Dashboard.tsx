@@ -6,9 +6,6 @@ import { useAuth } from '../../context/useAuthContext';
 import { useSocket } from '../../context/useSocketContext';
 import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
-import CalendarDisplay from '../../components/ManageBooking/Calendar/CalendarDisplay';
-import BookingList from '../../components/ManageBooking/BookingList/BookingList';
-import ProfilePhoto from '../../components/ProfilePhoto/ProfilePhoto';
 import Navbar from '../../components/Navbar/Navbar';
 
 export default function Dashboard(): JSX.Element {
@@ -44,10 +41,6 @@ export default function Dashboard(): JSX.Element {
         Messages="Messages"
       />
       <CssBaseline />
-      <Grid item className={classes.drawerWrapper}>
-        <BookingList />
-      </Grid>
-      <CalendarDisplay />
     </Grid>
   );
 }
