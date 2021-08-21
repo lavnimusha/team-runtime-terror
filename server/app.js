@@ -53,10 +53,11 @@ app.use((req, res, next) => {
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
 
-app.use("/notification", notificationRouter);
+app.use("/notifications", notificationRouter);
 
 app.use("/requests", requestRouter);
 app.use("/profiles", profileRouter);
+
 
 
 if (process.env.NODE_ENV === "production") {
