@@ -10,6 +10,8 @@ import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';
+import ProfileListings from './pages/Profile/ProfileListings/ProfileListings';
+import ProfileDetails from './components/ProfileSettings/ProfileDetails/ProfileDetails';
 
 function App(): JSX.Element {
   return (
@@ -24,6 +26,12 @@ function App(): JSX.Element {
                 <Route exact path="/signup" component={Signup} />
                 <Route exact path="/profile">
                   <Profile />
+                </Route>
+                <Route exact path="/profiles">
+                  <ProfileListings />
+                </Route>
+                <Route path="/profile-details">
+                  <ProfileDetails />
                 </Route>
                 <Route path="*">
                   <Redirect to="/login" />
