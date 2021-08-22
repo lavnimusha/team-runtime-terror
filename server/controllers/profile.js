@@ -163,7 +163,7 @@ exports.uploadImage =
 
     const file = req.files.file;
 
-    file.mv(`${__dirname}/uploadImage/${file.name}`, (err) => {
+    file.mv(`${__dirname}/${file.name}`, (err) => {
       if (err) {
         console.error(err);
         return res.status(500).send(err);
@@ -180,7 +180,7 @@ exports.uploadImage =
         Key: uploadedFile.name,
 
         Body: fs.createReadStream(
-          `${__dirname}/uploadImage/${uploadedFile.name}`
+          `${__dirname}/${uploadedFile.name}`
         ),
       };
       s3.upload(params, (err, data) => {
@@ -189,7 +189,7 @@ exports.uploadImage =
           return res.status(500).send(err);
         }
         console.log(`File uploaded successfully. ${data.Location}`);
-        fs.unlink(`${__dirname}/uploadImage/${uploadedFile.name}`, (err) => {
+        fs.unlink(`${__dirname}/${uploadedFile.name}`, (err) => {
           if (err) {
             console.log(err);
           }
