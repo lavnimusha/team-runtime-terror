@@ -2,6 +2,7 @@ const colors = require("colors");
 const path = require("path");
 const http = require("http");
 const express = require("express");
+const fileUpload = require("express-fileupload");
 const socketio = require("socket.io");
 const { notFound, errorHandler } = require("./middleware/error");
 const connectDB = require("./db");
@@ -19,7 +20,6 @@ const profileRouter = require("./routes/profile");
 var dataSchema = require("./models");
 
 const notificationRouter = require("./routes/notification");
-
 
 const { json, urlencoded } = express;
 
@@ -44,9 +44,11 @@ app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(join(__dirname, "public")));
+app.use(fileUpload());
 
 app.use((req, res, next) => {
   req.io = io;
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
   next();
 });
 

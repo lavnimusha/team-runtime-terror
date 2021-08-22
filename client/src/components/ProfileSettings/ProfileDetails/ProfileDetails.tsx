@@ -2,7 +2,8 @@ import { Avatar, Box, Button, Card, CardActionArea, CardContent, CardMedia, Grid
 import Rating from '@material-ui/lab/Rating';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import useStyles from './useStyles';
-import Navbar from '../../NavBar/Navbar';
+import NavBar from '../../NavBar/AuthNavBar/AuthNavBar';
+import Navbar from '../../Navbar/Navbar';
 import profCover from '../../../Images/profcover.jpg';
 import profimg from '../../../Images/profimg.jpg';
 import doggo from '../../../Images/dog1.jpg';
