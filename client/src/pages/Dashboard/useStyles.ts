@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   drawerWrapper: {
     width: drawerWidth,
     [theme.breakpoints.up('md')]: {
-      width: '300px',
+      width: '600px',
     },
   },
 }));
