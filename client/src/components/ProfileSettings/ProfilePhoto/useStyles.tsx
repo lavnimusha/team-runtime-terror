@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   photoCard: {
-    width: '55%',
+    width: '65%',
     margin: '3rem auto auto auto',
     border: 'none',
     boxShadow: 'none',

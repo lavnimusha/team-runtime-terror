@@ -3,6 +3,7 @@ import useStyles from './useStyles';
 import MainPanel from '../../components/ProfileSettings/MainPanel/MainPanel';
 import { BrowserRouter as Router, Switch, Route, useRouteMatch, NavLink } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
+import Navbar from '../../components/Navbar/Navbar';
 
 export default function Profile(): JSX.Element {
   const classes = useStyles();
@@ -25,6 +26,18 @@ export default function Profile(): JSX.Element {
         <Grid item xs={12}>
           <Grid container>
             <Grid key={1} item>
+              <Navbar
+                LOGOUT="/logout"
+                PROFILE="/profile"
+                MY_SITTER="/mySitter"
+                BECOME_SITTER="/becomeSitter"
+                MESSAGE="/message"
+                Logout="Log out"
+                Profile="Profile"
+                Mysitter="My Sitters"
+                Becomesitter="BECOME A SITTER"
+                Messages="Messages"
+              />
               <List component="nav" className={classes.menuWrapper}>
                 {listText.map((item) => {
                   return (

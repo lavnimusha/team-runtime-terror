@@ -2,24 +2,20 @@ const colors = require("colors");
 const path = require("path");
 const http = require("http");
 const express = require("express");
-const fileUpload = require("express-fileupload");
 const socketio = require("socket.io");
 const { notFound, errorHandler } = require("./middleware/error");
 const connectDB = require("./db");
 const { join } = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-
+const fileUpload = require("express-fileupload");
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
-
 const requestRouter = require("./routes/request");
 const profileRouter = require("./routes/profile");
 
 // Require all models
 var dataSchema = require("./models");
-
-const notificationRouter = require("./routes/notification");
 
 const { json, urlencoded } = express;
 
@@ -44,8 +40,8 @@ app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(join(__dirname, "public")));
-app.use(fileUpload());
 
+app.use(fileUpload());
 app.use((req, res, next) => {
   req.io = io;
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
@@ -54,12 +50,8 @@ app.use((req, res, next) => {
 
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
-
 app.use("/requests", requestRouter);
-app.use("/profiles", profileRouter);
-
-app.use("/notification", notificationRouter);
-
+app.use("/profile", profileRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/client/build")));
