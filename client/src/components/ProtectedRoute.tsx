@@ -9,6 +9,9 @@ const ProtectedRoute = ({ component: Component, ...rest }: any) => {
       render={(props) => {
         // logic for authenticated user to access /app part goes here.
         // e.g. check if user is logged-in logic.
+
+        const isLoggedIn = loggedInUser;
+
         return loggedInUser ? <Component {...props} /> : <Redirect to={'/login'} />;
       }}
     />
