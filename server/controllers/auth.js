@@ -25,7 +25,7 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
   const user = await User.create({
     username,
     email,
-    password
+    password,
   });
 
   if (user) {
@@ -34,7 +34,7 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      maxAge: secondsInWeek * 1000
+      maxAge: secondsInWeek * 1000,
     });
 
     res.status(201).json({
@@ -42,9 +42,9 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
         user: {
           id: user._id,
           username: user.username,
-          email: user.email
-        }
-      }
+          email: user.email,
+        },
+      },
     });
   } else {
     res.status(400);
@@ -58,31 +58,30 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
 exports.loginUser = asyncHandler(async (req, res, next) => {
   const { email, password, notifier } = req.body;
 
-  if(notifier === "demoLogin")
-  {
+  if (notifier === "demoLogin") {
     const id = "dogLover1234";
     const username = "doggieBoy";
-    const profile_id = "6118be3d22474d0edc64a1a3";
+    const profileId = "6118be3d22474d0edc64a1a3";
     const token = generateToken(id);
 
     const secondsInWeek = 604800;
 
     res.cookie("token", token, {
       httpOnly: true,
-      maxAge: secondsInWeek * 1000
+      maxAge: secondsInWeek * 1000,
     });
 
     res.status(200).json({
       success: {
         user: {
-        id: id,
-        username: username,
-        email: email,
-        profileId: profile_id
-      }
-    }});
-  }
-  else {
+          id: id,
+          username: username,
+          email: email,
+          profileId: profileId,
+        },
+      },
+    });
+  } else {
     const user = await User.findOne({ email });
 
     if (user && (await user.matchPassword(password))) {
@@ -91,18 +90,18 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
 
       res.cookie("token", token, {
         httpOnly: true,
-        maxAge: secondsInWeek * 1000
+        maxAge: secondsInWeek * 1000,
       });
 
       res.status(200).json({
         success: {
-        user: {
-          id: user._id,
-          username: user.username,
-          email: user.email
-        }
-      }
-    });
+          user: {
+            id: user._id,
+            username: user.username,
+            email: user.email,
+          },
+        },
+      });
     } else {
       res.status(401);
       throw new Error("Invalid email or password");
@@ -126,9 +125,9 @@ exports.loadUser = asyncHandler(async (req, res, next) => {
       user: {
         id: user._id,
         username: user.username,
-        email: user.email
-      }
-    }
+        email: user.email,
+      },
+    },
   });
 });
 
