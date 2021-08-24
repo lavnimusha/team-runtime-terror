@@ -1,66 +1,24 @@
 import React, { useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import {
+  Typography,
+  MenuItem,
+  Paper,
+  TextareaAutosize,
+  Select,
+  Button,
+  TextField,
+  FormControl,
+  Box,
+  Grid,
+  Container,
+} from '@material-ui/core';
 import MuiPhoneNumber from 'material-ui-phone-number';
 import axios from 'axios';
-
-const theme = {
-  spacing: 8,
-};
+import useStyles from './useStyles';
 
 const EditProfile = () => {
-  const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-      paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-      },
-      form: {
-        width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(3),
-      },
-      submit: {
-        margin: theme.spacing(3, 0, 2),
-        padding: '0.5rem',
-        width: '10%',
-        color: '#dc004e',
-        border: '1px solid #dc004e',
-      },
-      textbox: {
-        width: '100%',
-      },
-      typography: {
-        fontWeight: 800,
-        fontSize: '12px',
-      },
-      gridcontainer: {
-        padding: theme.spacing(1),
-      },
-      heading: {
-        fontWeight: 550,
-      },
-      phone: {
-        padding: '1px', //TODO add padding or margin later
-      },
-      gender: {
-        fontSize: '10px',
-      },
-    }),
-  );
   const classes = useStyles();
   const [phone, setPhone] = useState('');
   const phoneRegExp =
@@ -77,52 +35,49 @@ const EditProfile = () => {
         description: '',
       }}
       validationSchema={Yup.object({
-        firstName: Yup.string().max(15, 'Must be 15 characters or less'),
-        lastName: Yup.string().max(20, 'Must be 20 characters or less'),
+        firstName: Yup.string()
+          .matches(/^[A-Za-z ]*$/, 'Please enter valid name')
+          .max(40),
+        lastName: Yup.string()
+          .matches(/^[A-Za-z ]*$/, 'Please enter valid name')
+          .max(40),
         email: Yup.string().email('Invalid email address').required('Required'),
         phoneNumber: Yup.string().matches(phoneRegExp, 'Phone number is not valid'),
       })}
-      onSubmit={(values, { setSubmitting }) => {
+      onSubmit={async (values, { setSubmitting }) => {
         values.phoneNumber = phone;
-        console.log(values);
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          axios
-            .post('http://localhost:3001/profiles/create', values)
-            .then((res) => {
-              console.log(res.data);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-          setSubmitting(false);
-        }, 400);
+        await axios
+          .post('http://localhost:3001/profiles/create', values)
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        setSubmitting(false);
       }}
     >
       {(formik) => (
         <form className={classes.form} noValidate onSubmit={formik.handleSubmit}>
           <Container component="main" maxWidth="sm">
-            <CssBaseline />
-            <div className={classes.paper}>
+            <Paper elevation={0} className={classes.paper}>
               <Box component="div" m={2}>
                 <Typography className={classes.heading} component="h1" variant="h5">
-                  EDIT PROFILE
+                  edit profile
                 </Typography>
               </Box>
 
               <Grid container spacing={3}>
-                <CssBaseline />
                 <Grid container spacing={2} className={classes.gridcontainer}>
                   <Grid item xs={3}>
                     <Box component="div" p={1}>
                       <Typography className={classes.typography} component="h3" variant="h6">
-                        FIRST NAME
+                        first name{' '}
                       </Typography>
                     </Box>
                   </Grid>
                   <Grid item xs={9}>
                     <TextField
-                      autoComplete="fname"
                       variant="outlined"
                       placeholder="John"
                       required
@@ -139,7 +94,7 @@ const EditProfile = () => {
                   <Grid item xs={3}>
                     <Box component="div" p={1}>
                       <Typography className={classes.typography} component="h3" variant="h6">
-                        LAST NAME
+                        last name{' '}
                       </Typography>
                     </Box>
                   </Grid>
@@ -151,7 +106,6 @@ const EditProfile = () => {
                       size="small"
                       placeholder="Doe"
                       id="lastName"
-                      autoComplete="lname"
                       {...formik.getFieldProps('lastName')}
                     />
                     {formik.touched.lastName && formik.errors.lastName ? <div>{formik.errors.lastName}</div> : null}
@@ -162,7 +116,7 @@ const EditProfile = () => {
                   <Grid item xs={3}>
                     <Box component="div" p={1}>
                       <Typography className={classes.typography} component="h3" variant="h6">
-                        GENDER
+                        gender
                       </Typography>
                     </Box>
                   </Grid>
@@ -185,7 +139,7 @@ const EditProfile = () => {
                   <Grid item xs={3}>
                     <Box component="div" p={1}>
                       <Typography className={classes.typography} component="h3" variant="h6">
-                        BIRTH DATE
+                        birth date
                       </Typography>
                     </Box>
                   </Grid>
@@ -209,7 +163,7 @@ const EditProfile = () => {
                   <Grid item xs={3}>
                     <Box component="div" p={1}>
                       <Typography className={classes.typography} component="h3" variant="h6">
-                        PHONE NUMBER
+                        phone number
                       </Typography>
                     </Box>
                   </Grid>
@@ -226,9 +180,9 @@ const EditProfile = () => {
                     ) : null}
                   </Grid>
                   <Grid item xs={3}>
-                    <Button variant="outlined" color="secondary">
+                    <Button className={classes.addnumber} variant="outlined" color="secondary">
                       {' '}
-                      ADD NUMBER
+                      add number
                     </Button>
                   </Grid>
                   {/*TODO add functionality later */}
@@ -238,7 +192,7 @@ const EditProfile = () => {
                   <Grid item xs={3}>
                     <Box component="div" p={1}>
                       <Typography className={classes.typography} component="h3" variant="h6">
-                        EMAIL ADDRESS
+                        email address
                       </Typography>
                     </Box>
                   </Grid>
@@ -259,7 +213,7 @@ const EditProfile = () => {
                   <Grid item xs={3}>
                     <Box component="div" p={1}>
                       <Typography className={classes.typography} component="h3" variant="h6">
-                        WHERE YOU LIVE
+                        where to live
                       </Typography>
                     </Box>
                   </Grid>
@@ -279,7 +233,7 @@ const EditProfile = () => {
                   <Grid item xs={3}>
                     <Box component="div" p={1}>
                       <Typography className={classes.typography} component="h3" variant="h6">
-                        DESCRIBE YOURSELF
+                        describe yourself
                       </Typography>
                     </Box>
                   </Grid>
@@ -295,9 +249,9 @@ const EditProfile = () => {
                 </Grid>
               </Grid>
               <Button type="submit" variant="outlined" className={classes.submit}>
-                SUBMIT
+                submit
               </Button>
-            </div>
+            </Paper>
           </Container>
         </form>
       )}
