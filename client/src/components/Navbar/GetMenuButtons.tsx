@@ -49,7 +49,7 @@ const GetMenuButtons = ({
 
       <Box className={classes.dashboardAvatar}>
         <Link to="/profile">
-          <Avatar alt="Profile Image" src={`https://robohash.org/${loggedInUser!.email}.png`} />;
+          <Avatar alt="Profile Image" src={`https://robohash.org/${loggedInUser!.email}.png`} />
         </Link>
       </Box>
     </React.Fragment>
