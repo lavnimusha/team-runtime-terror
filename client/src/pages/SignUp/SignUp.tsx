@@ -8,7 +8,7 @@ import useStyles from './useStyles';
 import register from '../../helpers/APICalls/register';
 import SignUpForm from './SignUpForm/SignUpForm';
 import AuthHeader from '../../components/AuthHeader/AuthHeader';
-import AuthNavBar from '../../components/NavBar/AuthNavBar/AuthNavBar';
+import AuthNavBar from '../../components/Navbar/AuthNavBar/AuthNavBar';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
 import { demoUserLogin } from '../../helpers/APICalls/login';
