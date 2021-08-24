@@ -23,13 +23,14 @@ import { useState, useEffect } from 'react';
 import getProfileDetails from '../../../helpers/APICalls/profile';
 import { useAuth } from '../../../context/useAuthContext';
 import Loading from '../../Layout/Loading';
+import { Profile } from '../../../interface/Profile';
 
 const ProfileDetails = (): JSX.Element => {
   const classes = useStyles();
 
   const { loggedInUser } = useAuth();
 
-  const [data, setData] = useState<any>();
+  const [data, setData] = useState<Profile>();
 
   useEffect(() => {
     getProfileDetails(loggedInUser!.profileId).then((profileData) => {
@@ -72,22 +73,20 @@ const ProfileDetails = (): JSX.Element => {
                     </CardActionArea>
                     <CardContent className={classes.contentWrapper}>
                       <Typography align="center" variant="h4">
-                        Norma Byers
+                        {data.firstName} {data.lastName}
                       </Typography>
                       <Typography align="center" gutterBottom variant="body1">
-                        Loving Pet Sitter
+                        {data.description}
                       </Typography>
                       <Typography align="center" gutterBottom variant="body2">
                         <LocationOnIcon className={classes.locationIcon} color="secondary" fontSize="small" />
-                        Toronto, Ontario
+                        {/* LOCATION GOES HERE */}
                       </Typography>
                       <Typography gutterBottom variant="h4">
                         About me
                       </Typography>
                       <Typography align="left" gutterBottom variant="subtitle1" component="h2">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum nemo culpa dolore unde illum
-                        in quam rerum repellat. Sequi culpa atque,quam laboriosam minus possimus assumenda doloribus
-                        distinctio maxime nesciunt!
+                        {/* ABOUT ME GOES HERE */}
                       </Typography>
                       <Box display="flex" p={2} flexDirection="row" flexBasis="1">
                         <Avatar className={classes.thumbImages} variant="square" alt="Remy Sharp" src={doggo} />
@@ -102,7 +101,7 @@ const ProfileDetails = (): JSX.Element => {
                 <Paper elevation={12} className={classes.availWrapper}>
                   <Box p={5}>
                     <Typography gutterBottom align="center" variant="h4">
-                      $14/hr
+                      {/* RATE GOES HERE */}
                     </Typography>
                     <Typography align="center">
                       <Rating name="read-only" readOnly />

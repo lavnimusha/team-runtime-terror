@@ -61,7 +61,7 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
   if (notifier === "demoLogin") {
     const id = "dogLover1234";
     const username = "doggieBoy";
-    const profileId = "6118be3d22474d0edc64a1a3";
+    const profileId = "6118be3d22474d0edc64a1a5";
     const token = generateToken(id);
 
     const secondsInWeek = 604800;
