@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '0rem',
     paddingTop: '0rem',
   },
+  hiddenInput: {
+    display: 'none',
+  },
 }));
 
 export default useStyles;
