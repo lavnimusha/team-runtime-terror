@@ -8,7 +8,7 @@ const connectDB = require("./db");
 const { join } = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-
+const fileUpload = require("express-fileupload");
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
 const requestRouter = require("./routes/request");
@@ -41,15 +41,17 @@ app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(join(__dirname, "public")));
 
+app.use(fileUpload());
 app.use((req, res, next) => {
   req.io = io;
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
   next();
 });
 
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
 app.use("/requests", requestRouter);
-app.use("/profiles", profileRouter);
+app.use("/profile", profileRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/client/build")));

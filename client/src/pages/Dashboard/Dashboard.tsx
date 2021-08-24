@@ -5,14 +5,11 @@ import useStyles from './useStyles';
 import { useAuth } from '../../context/useAuthContext';
 import { useSocket } from '../../context/useSocketContext';
 import { useHistory } from 'react-router-dom';
-import ChatSideBanner from '../../components/ChatSideBanner/ChatSideBanner';
 import { useEffect } from 'react';
-import ProfilePhoto from '../../components/ProfilePhoto/ProfilePhoto';
 import Navbar from '../../components/Navbar/Navbar';
 
 export default function Dashboard(): JSX.Element {
   const classes = useStyles();
-
   const { loggedInUser } = useAuth();
   const { initSocket } = useSocket();
 
@@ -44,10 +41,6 @@ export default function Dashboard(): JSX.Element {
         Messages="Messages"
       />
       <CssBaseline />
-      <Grid item className={classes.drawerWrapper}>
-        <ChatSideBanner loggedInUser={loggedInUser} />
-      </Grid>
-      <ProfilePhoto />
     </Grid>
   );
 }
