@@ -22,7 +22,6 @@ exports.createNotification = asyncHandler(async (req, res) => {
       recipientId,
       senderId,
       message,
-      date,
     });
     res.status(201).json(notification);
   } catch (err) {
@@ -31,7 +30,7 @@ exports.createNotification = asyncHandler(async (req, res) => {
 });
 
 exports.getAllNotifications = asyncHandler(async (req, res) => {
-  const { recipientId } = req.user.id;
+  const recipientId = req.user.id;
   await User.findOne({ _id: recipientId }, function (err) {
     if (err) {
       res.status(404).send("Receiver not found!");
@@ -39,7 +38,7 @@ exports.getAllNotifications = asyncHandler(async (req, res) => {
   });
   try {
     const allNotifications = await Notification.find({
-      _id: recipientId,
+      recipientId: recipientId,
     });
     if (!allNotifications) {
       res.send("No notifications found!");
@@ -51,9 +50,9 @@ exports.getAllNotifications = asyncHandler(async (req, res) => {
 });
 
 exports.markNotificationRead = asyncHandler(async (req, res, next) => {
-  const notification_id = req.params.notification_id;
+  const notificationId = req.params.notification_id;
   const notification = Notification.findOne(
-    { _id: notification_id },
+    { _id: notificationId },
     function (err) {
       if (err) {
         res.status(404).send("Notification not found!!");
@@ -76,7 +75,7 @@ exports.markNotificationRead = asyncHandler(async (req, res, next) => {
 });
 
 exports.getUnreadNotifications = asyncHandler(async (req, res, next) => {
-  const { recipientId } = req.user.id;
+  const recipientId = req.user.id;
   await User.findOne({ _id: recipientId }, function (err) {
     if (err) {
       res.status(404).send("Receiver not found");
