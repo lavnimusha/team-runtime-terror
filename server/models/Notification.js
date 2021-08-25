@@ -19,20 +19,19 @@ const notificationSchema = new mongoose.Schema({
     required: true,
     default: false,
   },
-  date: {
-    type: Date,
-    default: Date.now,
-  },
-  sender: {
+  senderId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
   },
-  recipient: {
+  recipientId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
   },
+},
+{
+  timestamps: true
 });
 
 module.exports = Notification = mongoose.model(
