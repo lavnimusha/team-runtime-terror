@@ -11,8 +11,6 @@ const ManageBooking = (): JSX.Element => {
         <BookingList />
       </Grid>
 
-      <Grid item>
-
       <Grid item className={classes.calendar}>
         <CalendarDisplay />
       </Grid>

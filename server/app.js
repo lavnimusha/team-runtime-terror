@@ -11,15 +11,15 @@ const logger = require("morgan");
 
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
-
 const requestRouter = require("./routes/request");
 const profileRouter = require("./routes/profile");
+const messageRouter = require("./routes/message");
+const conversationRouter = require("./routes/conversation");
 
 // Require all models
 var dataSchema = require("./models");
 
 const notificationRouter = require("./routes/notification");
-
 
 const { json, urlencoded } = express;
 
@@ -52,12 +52,11 @@ app.use((req, res, next) => {
 
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
-
 app.use("/requests", requestRouter);
 app.use("/profiles", profileRouter);
-
 app.use("/notification", notificationRouter);
-
+app.use("/messages", messageRouter);
+app.use("/conversations", conversationRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/client/build")));
