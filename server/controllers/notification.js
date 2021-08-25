@@ -85,6 +85,7 @@ exports.getUnreadNotifications = asyncHandler(async (req, res, next) => {
   try {
     const unReadNotifications = await Notification.find({
       isRead: false,
+      recipientId: recipientId,
     });
     if (!unReadNotifications) {
       res.send("No notifications found!");
