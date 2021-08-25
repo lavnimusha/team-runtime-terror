@@ -8,7 +8,7 @@ import useStyles from './useStyles';
 import { login, demoUserLogin } from '../../helpers/APICalls/login';
 import LoginForm from './LoginForm/LoginForm';
 import AuthHeader from '../../components/AuthHeader/AuthHeader';
-import AuthNavBar from '../../components/NavBar/AuthNavBar/AuthNavBar';
+import AuthNavBar from '../../components/Navbar/AuthNavBar/AuthNavBar';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
 import { AppBar, Button } from '@material-ui/core';
@@ -43,13 +43,12 @@ export default function Login(): JSX.Element {
     const loginData = {
       email: 'doglover@gmail.com',
       password: 'dogLover',
-      notifier: 'demoLogin'
+      notifier: 'demoLogin',
     };
     demoUserLogin(loginData.email, loginData.password, loginData.notifier).then((data) => {
       if (data.success) {
         updateLoginContext(data.success);
-      }
-      else {
+      } else {
         updateSnackBarMessage('An unexpected error occurred. Please try again');
       }
     });
