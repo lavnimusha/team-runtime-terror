@@ -9,7 +9,7 @@ import {
   Avatar,
   Card,
   CardActionArea,
-  CardMedia,
+  Divider,
   CardContent,
 } from '@material-ui/core';
 import { Search } from '@material-ui/icons';
@@ -83,7 +83,7 @@ const ProfileListings = () => {
                             {profile.description}
                           </Typography>
 
-                          <hr />
+                          <Divider variant="fullWidth" style={{ margin: '5px' }} />
 
                           <Box display="flex" flexDirection="row" justifyContent="space-between">
                             <Typography variant="body2" color="textSecondary">
