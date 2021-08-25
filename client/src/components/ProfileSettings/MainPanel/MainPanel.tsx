@@ -1,9 +1,9 @@
-import Availability from "../Availability/Availability";
-import EditProfile from "../EditProfile/EditProfile";
-import Payment from "../Payment/Payment";
-import ProfilePhoto from "../ProfilePhoto/ProfilePhoto";
-import Security from "../Security/Security";
-import Settings from "../Settings/Settings";
+import Availability from '../Availability/Availability';
+import EditProfile from '../EditProfile/EditProfile';
+import Payment from '../Payment/Payment';
+import ProfilePhoto from '../ProfilePhoto/ProfilePhoto';
+import Security from '../Security/Security';
+import Settings from '../Settings/Settings';
 import ManageBooking from '../ManageBooking/ManageBooking';
 import { useParams } from 'react-router-dom';
 

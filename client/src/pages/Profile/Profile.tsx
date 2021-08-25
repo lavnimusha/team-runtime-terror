@@ -1,4 +1,4 @@
-import { Grid, List, ListItem, ListItemText, Paper } from "@material-ui/core";
+import { Grid, List, ListItem, ListItemText, Paper } from '@material-ui/core';
 import useStyles from './useStyles';
 import MainPanel from '../../components/ProfileSettings/MainPanel/MainPanel';
 import { BrowserRouter as Router, Switch, Route, useRouteMatch, NavLink } from 'react-router-dom';

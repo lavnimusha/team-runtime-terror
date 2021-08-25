@@ -43,13 +43,12 @@ export default function Register(): JSX.Element {
     const demoLoginData = {
       email: 'doglover@gmail.com',
       password: 'dogLover',
-      notifier: 'demoLogin'
+      notifier: 'demoLogin',
     };
     demoUserLogin(demoLoginData.email, demoLoginData.password, demoLoginData.notifier).then((data) => {
       if (data.success) {
         updateLoginContext(data.success);
-      }
-      else {
+      } else {
         updateSnackBarMessage('An unexpected error occurred. Please try again');
       }
     });
