@@ -30,17 +30,17 @@ const ProfileDetails = (): JSX.Element => {
 
   const { loggedInUser } = useAuth();
 
-  const [data, setData] = useState<Profile>();
+  const [profile, setProfileData] = useState<Profile>();
 
   useEffect(() => {
     getProfileDetails(loggedInUser!.profileId).then((profileData) => {
-      setData(profileData.profiles[0]);
+      setProfileData(profileData.profiles[0]);
     });
-  });
+  }, [loggedInUser]);
 
   return (
     <>
-      {!data ? (
+      {!profile ? (
         <Loading />
       ) : (
         <Grid container className={classes.root}>
@@ -73,10 +73,10 @@ const ProfileDetails = (): JSX.Element => {
                     </CardActionArea>
                     <CardContent className={classes.contentWrapper}>
                       <Typography align="center" variant="h4">
-                        {data.firstName} {data.lastName}
+                        {profile.firstName} {profile.lastName}
                       </Typography>
                       <Typography align="center" gutterBottom variant="body1">
-                        {data.description}
+                        {profile.description}
                       </Typography>
                       <Typography align="center" gutterBottom variant="body2">
                         <LocationOnIcon className={classes.locationIcon} color="secondary" fontSize="small" />
