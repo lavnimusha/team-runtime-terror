@@ -5,7 +5,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '4rem auto 2rem 10rem',
     paddingBottom: '2rem',
     width: '55vw',
-    height: '60vh',
+    height: '75vh',
   },
 
   paymentCard: {
@@ -13,17 +13,22 @@ const useStyles = makeStyles((theme) => ({
     margin: '3rem auto auto auto',
     border: 'none',
     boxShadow: 'none',
-    height: '50vh',
+    height: '60vh',
   },
 
   buttonRoot: { color: 'red', border: '0.5px red solid' },
   cardButton: {
     padding: theme.spacing(2),
     fontWeight: 700,
+    width: '50%',
+    marginTop: '1rem',
   },
   form: {
     width: '50%',
-    marginTop: '1rem',
+    marginTop: '2rem',
+  },
+  cardElement: {
+    margin: '2rem 0rem 1rem 0rem',
   },
   customerCard: {
     alignItems: 'flex-start',
@@ -60,6 +65,19 @@ const useStyles = makeStyles((theme) => ({
   },
   expirationDate: {
     margin: '1rem auto 0rem auto',
+  },
+  errorText: {
+    color: 'red',
+    paddingLeft: '0.5rem',
+    display: 'inline',
+    // marginTop: '-1rem',
+  },
+  errorIcon: {
+    color: 'red',
+    paddingLeft: '2rem',
+    paddingBottom: '0rem',
+    // marginBottom: '0rem',
+    // display: 'inline',
   },
   textField: {
     margin: '0rem 2rem auto auto',

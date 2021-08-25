@@ -205,3 +205,7 @@ exports.uploadImage =
       return res.status(500).send(err);
     }
   });
+
+  exports.payment = asyncHandler(async (req, res, next) => {
+    res.send("id received successfully");
+  });
