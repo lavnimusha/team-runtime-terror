@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import axios from 'axios';
 import { Grid, Avatar, Menu, Button } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import SettingsIcon from '@material-ui/icons/Settings';
 import useStyles from './useStyles';
+import { handleAcceptHelper, handleDeclineHelper } from '../../../../helpers/APICalls/manageBooking';
 interface Props {
   status: string;
   bookingDate: string;
@@ -29,34 +29,13 @@ const BookingItem = ({
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
   const handleAccept = async (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(null);
-    try {
-      await axios.post(
-        'http://localhost:3001/profile/manage-booking',
-        JSON.stringify({ status: 'ACCEPTED', category, index }),
-      );
-    } catch (err) {
-      console.log(err);
-    }
+    await handleAcceptHelper('ACCEPTED', category, index);
   };
   const handleDecline = async (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(null);
-    try {
-      await axios.post(
-        'http://localhost:3001/profile/manage-booking',
-        JSON.stringify({ status: 'DECLINED', category, index }),
-      );
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
+    await handleDeclineHelper('DECLINED', category, index);
   };
 
   return (
@@ -69,16 +48,26 @@ const BookingItem = ({
             </Typography>
           </Grid>
           <Grid item className={classes.avatarGrid}>
-            <Avatar alt="Profile Image" src={imgUrl} variant="circle" className={classes.photoAvatar} />
+            <Avatar alt="Profile Image" src={imgUrl} variant="circular" className={classes.photoAvatar} />
             <Typography className={classes.userName}>{userName}</Typography>
           </Grid>
         </Grid>
-        <Grid item className={classes.statusGrid} alignContent="center">
+        <Grid item className={classes.statusGrid}>
           <Typography className={classes.status}>{status}</Typography>
-          <Button aria-controls="simple-menu" aria-haspopup="true" onClick={(event) => handleClick(event)}>
+          <Button
+            aria-controls="simple-menu"
+            aria-haspopup="true"
+            onClick={(event) => setAnchorEl(event.currentTarget)}
+          >
             <SettingsIcon />
           </Button>
-          <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={() => setAnchorEl(null)}
+          >
             <Button onClick={(event) => handleAccept(event)}>Accept</Button>
             <Button onClick={(event) => handleDecline(event)}>Decline</Button>
           </Menu>

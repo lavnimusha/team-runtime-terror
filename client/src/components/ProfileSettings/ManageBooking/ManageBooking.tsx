@@ -8,20 +8,22 @@ import { useAuth } from '../../../context/useAuthContext';
 
 const ManageBooking = (): JSX.Element => {
   const { loggedInUser } = useAuth();
-  const [incomingData, setIncomingData] = useState({});
+  const [userBookingInfo, setUserBookingInfo] = useState({});
   const classes = useStyles();
 
   useEffect(() => {
     const handleIncomingBooking = async () => {
       try {
-        setIncomingData(await axios.post('http://localhost:3001/profile/manage-booking', JSON.stringify(loggedInUser)));
+        setUserBookingInfo(
+          await axios.post('http://localhost:3001/profile/manage-booking', JSON.stringify(loggedInUser)),
+        );
       } catch (err) {
         console.log(err);
       }
     };
     handleIncomingBooking();
   }, [loggedInUser]);
-  const newData = incomingData as any;
+  const newData = userBookingInfo as any;
 
   return (
     <Container className={classes.bookingContainer}>
