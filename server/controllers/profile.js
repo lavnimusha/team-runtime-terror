@@ -7,39 +7,37 @@ const generateToken = require("../utils/generateToken");
 // @access Private
 
 exports.createProfile = asyncHandler(async (req, res, next) => {
-  console.log(req.body);
-  const new_obj = Object.assign(
-    {
-      availability: {
-        startDate: "2012-04-23T18:25:43.511Z",
-        endDate: "2012-04-23T18:25:43.511Z",
-        daysOfWeek: ["Saturday", "Monday"],
-      },
-    },
-    req.body
-  );
-  console.log(new_obj);
+  console.log(req.body.birthDate);
   const {
     firstName,
     lastName,
     description,
     email,
+    gender,
     phoneNumber,
+    birthDate,
+    address,
     availability: { startDate, endDate, daysOfWeek },
-  } = new_obj;
+  } = req.body;
 
-  const profile = await Profile.create({
-    firstName,
-    lastName,
-    description,
-    email,
-    phoneNumber,
-    availability: {
-      startDate,
-      endDate,
-      daysOfWeek,
-    },
-  });
+  const profile = await Profile.updateOne(
+    { _id: req.body._id },
+    {
+      firstName,
+      lastName,
+      description,
+      email,
+      gender,
+      phoneNumber,
+      address,
+      birthDate,
+      availability: {
+        startDate,
+        endDate,
+        daysOfWeek,
+      },
+    }
+  );
 
   if (profile) {
     const token = generateToken(profile._id);
@@ -50,11 +48,11 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
       maxAge: secondsInWeek * 1000,
     });
 
-    res.status(201).json({
+    res.status(200).json({
       success: {
         user: {
           id: profile._id,
-          ffirstName: profile.firstName,
+          firstName: profile.firstName,
           lastName: profile.lastName,
           description: profile.description,
           email: profile.email,
@@ -71,6 +69,7 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
     res.status(400);
     throw new Error("Invalid user data");
   }
+  console.log(profile);
 });
 
 // @route GET /profiles
@@ -78,21 +77,24 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
 // @access Private
 
 exports.searchProfiles = asyncHandler(async (req, res, next) => {
-  const profile_id = req.query._id;
+  console.log(req.query);
 
-  let profiles;
-  if (profile_id) {
-    profiles = await Profile.find({
-      _id: profile_id,
+  const profile_email = req.query.email;
+
+  let profile;
+  if (profile_email) {
+    profile = await Profile.find({
+      email: profile_email,
     });
   }
 
-  if (!profiles) {
+  if (!profile) {
     res.status(404);
     throw new Error("No profiles found in search");
   }
 
-  res.status(200).json({ profiles: profiles });
+  const [result] = profile;
+  res.status(200).json(result);
 });
 
 // @route GET /profiles
