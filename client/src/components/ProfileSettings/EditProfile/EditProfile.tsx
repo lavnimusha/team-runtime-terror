@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
-import { Formik } from 'formik';
+import { useEffect } from 'react';
+import { Formik, FormikValues, setNestedObjectValues } from 'formik';
+import useStyles from './useStyles';
 import * as Yup from 'yup';
+import axios from 'axios';
+
 import {
   Typography,
   MenuItem,
@@ -15,25 +19,67 @@ import {
   Container,
 } from '@material-ui/core';
 import MuiPhoneNumber from 'material-ui-phone-number';
-import axios from 'axios';
-import useStyles from './useStyles';
+import { useAuth } from '../../../context/useAuthContext';
+import { FetchOptions } from '../../../interface/FetchOptions';
+import Profile from '../../../pages/Profile/Profile';
+
+export interface IFormInitialValues {
+  firstName: string;
+  lastName: string;
+  email: string;
+  birthDate: string;
+  address: string;
+  phoneNumber: string;
+  description: string;
+  gender: string;
+  availability: {
+    startDate: Date;
+    endDate: Date;
+    daysOfWeek: Array<string>;
+  };
+}
 
 const EditProfile = () => {
   const classes = useStyles();
   const [phone, setPhone] = useState('');
-  const phoneRegExp =
-    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+  const [profileData, setprofileData] = useState<IFormInitialValues>({
+    firstName: '',
+    lastName: '',
+    email: '',
+    birthDate: '',
+    address: '',
+    phoneNumber: '',
+    description: '',
+    gender: 'Male',
+    availability: {
+      startDate: new Date(),
+      endDate: new Date(),
+      daysOfWeek: ['saturday'],
+    },
+  });
+  const { loggedInUser } = useAuth();
+
+  useEffect(() => {
+    const incomingProfileData = async () => {
+      const fetchOptions: FetchOptions = {
+        method: 'GET',
+        credentials: 'include',
+      };
+      setprofileData(
+        await fetch(`/profiles/search/?email=${loggedInUser!.email}`, fetchOptions)
+          .then((res) => res.json())
+          .catch(() => ({
+            error: { message: 'Unable to connect to server. Please try again' },
+          })),
+      );
+    };
+    incomingProfileData();
+  }, [loggedInUser]);
+
   return (
     <Formik
-      initialValues={{
-        firstName: '',
-        lastName: '',
-        email: '',
-        birthdate: '',
-        address: '',
-        phoneNumber: '',
-        description: '',
-      }}
+      enableReinitialize
+      initialValues={profileData}
       validationSchema={Yup.object({
         firstName: Yup.string()
           .matches(/^[A-Za-z ]*$/, 'Please enter valid name')
@@ -42,10 +88,10 @@ const EditProfile = () => {
           .matches(/^[A-Za-z ]*$/, 'Please enter valid name')
           .max(40),
         email: Yup.string().email('Invalid email address').required('Required'),
-        phoneNumber: Yup.string().matches(phoneRegExp, 'Phone number is not valid'),
       })}
       onSubmit={async (values, { setSubmitting }) => {
         values.phoneNumber = phone;
+        setprofileData(values);
         await axios
           .post('http://localhost:3001/profiles/create', values)
           .then((res) => {
@@ -72,7 +118,7 @@ const EditProfile = () => {
                   <Grid item xs={3}>
                     <Box component="div" p={1}>
                       <Typography className={classes.typography} component="h3" variant="h6">
-                        first name{' '}
+                        first name
                       </Typography>
                     </Box>
                   </Grid>
@@ -154,7 +200,7 @@ const EditProfile = () => {
                         InputLabelProps={{
                           shrink: true,
                         }}
-                        {...formik.getFieldProps('birthdate')}
+                        {...formik.getFieldProps('birthDate')}
                       />
                     </form>
                   </Grid>
