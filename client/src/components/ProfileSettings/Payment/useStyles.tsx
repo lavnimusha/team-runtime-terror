@@ -25,13 +25,14 @@ const useStyles = makeStyles((theme) => ({
   },
 
   buttonRoot: { color: 'red', border: '0.5px red solid' },
-  photoButton: {
+  cardButton: {
     padding: theme.spacing(2),
     fontWeight: 700,
+    width: '50%',
   },
   form: {
-    width: '50%',
-    marginTop: '4rem',
+    width: '90%',
+    margin: '2rem 2rem 1rem 2rem',
   },
   customerCard: {
     alignItems: 'flex-start',
@@ -44,13 +45,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: 'contain',
   },
 
-  cardInput: {
-    padding: theme.spacing(2),
-    fontWeight: 700,
-    color: 'red',
-    border: '0.5px red solid',
-    display: 'none',
-  },
   paymentHeader: {
     fontWeight: 700,
     fontSize: '1.8rem',

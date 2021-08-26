@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import useStyles from './useStyles';
-// the following images will be replaced with card snapshots
+// TODO the following images will be replaced with card snapshots
 import image1 from '../../../Images/credit-card-1369111_1280.png';
 import image2 from '../../../Images/credit-cards-1583534_1920.jpg';
 import {
@@ -25,7 +25,7 @@ const Payment = (): JSX.Element => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      //make post request and save card details
+      // TODO make post request and save card details
     } catch (err) {
       console.log(err);
     }
@@ -61,20 +61,21 @@ const Payment = (): JSX.Element => {
           </Grid>
         </Grid>
         <CardActions>
-          <form action="/" method="POST" className={classes.form} onSubmit={handleSubmit}>
-            <Button
-              type="submit"
+          
+          <Button
               variant="outlined"
               onClick={handleClickOpen}
               fullWidth
-              className={classes.photoButton}
+              className={classes.cardButton}
               classes={{
                 root: classes.buttonRoot,
               }}
             >
               Add new payment profile
             </Button>
+         
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+            <form className={classes.form} onSubmit={handleSubmit}>
               <DialogTitle id="form-dialog-title">Credit Card Details</DialogTitle>
               <DialogContent>
                 <DialogContentText>Please enter your credit card details:</DialogContentText>
@@ -94,15 +95,16 @@ const Payment = (): JSX.Element => {
                 <TextField margin="dense" label="ZIP/Postal Code" type="text" fullWidth />
               </DialogContent>
               <DialogActions>
-                <Button onClick={handleClose} color="primary">
+                <Button onClick={handleClose} type="submit" color="primary">
                   Submit
                 </Button>
                 <Button onClick={handleClose} color="primary">
-                  Cancle
+                  Cancel
                 </Button>
               </DialogActions>
+              </form>
             </Dialog>
-          </form>
+         
         </CardActions>
       </Card>
     </Paper>
