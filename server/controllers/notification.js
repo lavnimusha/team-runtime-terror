@@ -2,16 +2,26 @@ const asyncHandler = require("express-async-handler");
 const Notification = require("../models/Notification");
 const User = require("../models/User");
 
-exports.createNotification = asyncHandler(async (req, res, next) => {
-  const body = req.body;
+exports.createNotification = asyncHandler(async (req, res) => {
+  const { title, type, senderId, recipientId, message } = req.body;
+  await User.findOne({ _id: senderId }, function (err) {
+    if (err) {
+      res.status(404).send("Sender not found!!");
+    }
+  });
+  await User.findOne({ _id: recipientId }, function (err) {
+    if (err) {
+      res.status(404).send("Receiver not found");
+    }
+  });
+
   try {
-    const user = await User.findById(req.user.id);
     const notification = await Notification.create({
-      to: body.to,
-      from: req.user.id,
-      notification: body.notification,
-      profilePic: user.profilePic,
-      contestId: body.contestId,
+      type,
+      title,
+      recipientId,
+      senderId,
+      message,
     });
     res.status(201).json(notification);
   } catch (err) {
@@ -19,44 +29,68 @@ exports.createNotification = asyncHandler(async (req, res, next) => {
   }
 });
 
-exports.getNotification = asyncHandler(async (req, res, next) => {
+exports.getAllNotifications = asyncHandler(async (req, res) => {
+  const recipientId = req.user.id;
+  await User.findOne({ _id: recipientId }, function (err) {
+    if (err) {
+      res.status(404).send("Receiver not found!");
+    }
+  });
   try {
     const allNotifications = await Notification.find({
-      to: req.user.id,
+      recipientId: recipientId,
     });
+    if (!allNotifications) {
+      res.send("No notifications found!");
+    }
     res.status(200).json(allNotifications);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-exports.getAllNotification = asyncHandler(async (req, res, next) => {
-  try {
-    const allNotifications = await Notification.find({
-      to: req.user.id,
-    });
-    res.status(200).json(allNotifications);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+exports.markNotificationRead = asyncHandler(async (req, res, next) => {
+  const notificationId = req.params.notification_id;
+  const notification = Notification.findOne(
+    { _id: notificationId },
+    function (err) {
+      if (err) {
+        res.status(404).send("Notification not found!!");
+      }
+    }
+  );
+  if (notification) {
+    const notification = await Notification.updateOne(
+      { _id: notification_id },
+      { isRead: true },
+      function (err) {
+        if (err) {
+          res.status(500).send("Internal Server Error!");
+        }
 
-exports.markNotification = asyncHandler(async (req, res, next) => {
-  const body = req.body;
-  const newNotification = {
-    opened: body.opened,
-    to: body.to,
-    from: body.from,
-    notification: body.notification,
-    contestId: body.contestId,
-  };
-  try {
-    const notification = await Notification.findByIdAndUpdate(
-      req.params.id,
-      newNotification,
-      { new: true }
+        res.status(200).json(notification);
+      }
     );
-    res.status(200).json(notification);
+  }
+});
+
+exports.getUnreadNotifications = asyncHandler(async (req, res, next) => {
+  const recipientId = req.user.id;
+  await User.findOne({ _id: recipientId }, function (err) {
+    if (err) {
+      res.status(404).send("Receiver not found");
+    }
+  });
+
+  try {
+    const unReadNotifications = await Notification.find({
+      isRead: false,
+      recipientId: recipientId,
+    });
+    if (!unReadNotifications) {
+      res.send("No notifications found!");
+    }
+    res.status(200).json(unReadNotifications);
   } catch (err) {
     res.status(500).json(err);
   }
