@@ -27,6 +27,15 @@ const io = socketio(server, {
   cors: {
     origin: "*",
   },
+}); /*TODO: This is not working below is fix*/
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
 });
 
 io.on("connection", (socket) => {
