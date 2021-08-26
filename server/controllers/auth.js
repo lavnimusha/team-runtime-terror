@@ -1,6 +1,8 @@
 const User = require("../models/User");
+const Profile = require("../models/Profile");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("../utils/generateToken");
+const { ObjectID } = require("mongodb");
 
 // @route POST /auth/register
 // @desc Register user
@@ -21,20 +23,35 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
     res.status(400);
     throw new Error("A user with that username already exists");
   }
+  const profile_id = new ObjectID();
 
   const user = await User.create({
     username,
     email,
-    password
+    password,
+    profile: profile_id,
   });
 
+  const profile = Profile.create({
+    id: profile_id,
+    email,
+    firstName: " ",
+    lastName: " ",
+    description: " ",
+    gender: "Male",
+    availability: {
+      startDate: "2012-04-23T18:25:43.511Z",
+      endDate: "2012-04-23T18:25:43.511Z",
+      daysOfWeek: ["Saturday", "Monday"],
+    },
+  });
   if (user) {
     const token = generateToken(user._id);
     const secondsInWeek = 604800;
 
     res.cookie("token", token, {
       httpOnly: true,
-      maxAge: secondsInWeek * 1000
+      maxAge: secondsInWeek * 1000,
     });
 
     res.status(201).json({
@@ -42,14 +59,50 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
         user: {
           id: user._id,
           username: user.username,
-          email: user.email
-        }
-      }
+          email: user.email,
+          profile: user.profile,
+        },
+      },
     });
   } else {
     res.status(400);
     throw new Error("Invalid user data");
   }
+  /*Creating Profile */
+  /* const profile = Profile.create({
+    id: profile_id,
+    email,
+    firstName: 'default',
+    lastName: 'default',
+    description: 'default',
+    phoneNumber: '+1 408-567-5456',
+    gender:'Male',
+    availability: {
+      startDate: "2012-04-23T18:25:43.511Z",
+        endDate: "2012-04-23T18:25:43.511Z",
+        daysOfWeek: ["Saturday", "Monday"],
+    },
+  });
+
+  if (profile) {
+    const token = generateToken(profile._id);
+    const secondsInWeek = 604800;
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      maxAge: secondsInWeek * 1000,
+    });
+
+    res.status(201).json({
+      success: {
+        log : 'Success OK'
+      },
+    });
+  } else {
+    res.status(400);
+    throw new Error("Invalid Profile data");
+  }*/
+  console.log(profile);
 });
 
 // @route POST /auth/login
@@ -58,8 +111,7 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
 exports.loginUser = asyncHandler(async (req, res, next) => {
   const { email, password, notifier } = req.body;
 
-  if(notifier === "demoLogin")
-  {
+  if (notifier === "demoLogin") {
     const id = "dogLover1234";
     const username = "doggieBoy";
     const token = generateToken(id);
@@ -68,19 +120,19 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      maxAge: secondsInWeek * 1000
+      maxAge: secondsInWeek * 1000,
     });
 
     res.status(200).json({
       success: {
         user: {
-        id: id,
-        username: username,
-        email: email
-      }
-    }});
-  }
-  else {
+          id: id,
+          username: username,
+          email: email,
+        },
+      },
+    });
+  } else {
     const user = await User.findOne({ email });
 
     if (user && (await user.matchPassword(password))) {
@@ -89,18 +141,18 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
 
       res.cookie("token", token, {
         httpOnly: true,
-        maxAge: secondsInWeek * 1000
+        maxAge: secondsInWeek * 1000,
       });
 
       res.status(200).json({
         success: {
-        user: {
-          id: user._id,
-          username: user.username,
-          email: user.email
-        }
-      }
-    });
+          user: {
+            id: user._id,
+            username: user.username,
+            email: user.email,
+          },
+        },
+      });
     } else {
       res.status(401);
       throw new Error("Invalid email or password");
@@ -124,9 +176,9 @@ exports.loadUser = asyncHandler(async (req, res, next) => {
       user: {
         id: user._id,
         username: user.username,
-        email: user.email
-      }
-    }
+        email: user.email,
+      },
+    },
   });
 });
 
