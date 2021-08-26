@@ -68,41 +68,6 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
     res.status(400);
     throw new Error("Invalid user data");
   }
-  /*Creating Profile */
-  /* const profile = Profile.create({
-    id: profile_id,
-    email,
-    firstName: 'default',
-    lastName: 'default',
-    description: 'default',
-    phoneNumber: '+1 408-567-5456',
-    gender:'Male',
-    availability: {
-      startDate: "2012-04-23T18:25:43.511Z",
-        endDate: "2012-04-23T18:25:43.511Z",
-        daysOfWeek: ["Saturday", "Monday"],
-    },
-  });
-
-  if (profile) {
-    const token = generateToken(profile._id);
-    const secondsInWeek = 604800;
-
-    res.cookie("token", token, {
-      httpOnly: true,
-      maxAge: secondsInWeek * 1000,
-    });
-
-    res.status(201).json({
-      success: {
-        log : 'Success OK'
-      },
-    });
-  } else {
-    res.status(400);
-    throw new Error("Invalid Profile data");
-  }*/
-  console.log(profile);
 });
 
 // @route POST /auth/login
