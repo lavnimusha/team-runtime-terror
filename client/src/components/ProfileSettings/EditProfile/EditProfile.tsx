@@ -66,7 +66,7 @@ const EditProfile = () => {
         credentials: 'include',
       };
       setprofileData(
-        await fetch(`/profiles/search/?email=${loggedInUser!.email}`, fetchOptions)
+        await fetch(`/profiles/search/${loggedInUser!.email}`, fetchOptions)
           .then((res) => res.json())
           .catch(() => ({
             error: { message: 'Unable to connect to server. Please try again' },
