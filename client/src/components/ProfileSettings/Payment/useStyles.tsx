@@ -24,8 +24,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '1rem',
   },
   form: {
-    width: '50%',
+    width: '50vw',
     marginTop: '2rem',
+    padding: '2rem',
   },
   cardElement: {
     margin: '2rem 0rem 1rem 0rem',
@@ -50,7 +51,6 @@ const useStyles = makeStyles((theme) => ({
   noCard: {
     fontWeight: 'bold',
     padding: '2rem 0rem 1rem 0rem',
-    // margin: '3rem auto',
   },
   sampleCard: {
     width: '12rem',
@@ -58,7 +58,6 @@ const useStyles = makeStyles((theme) => ({
   },
   paymentText: {
     fontWeight: 700,
-    // paddingTop: '1.5rem',
     margin: '1rem 0rem',
     color: 'grey',
     width: '80%',
@@ -68,21 +67,45 @@ const useStyles = makeStyles((theme) => ({
   },
   errorText: {
     color: 'red',
-    paddingLeft: '0.5rem',
+    paddingLeft: '1.5rem',
     display: 'inline',
-    // marginTop: '-1rem',
   },
-  errorIcon: {
-    color: 'red',
-    paddingLeft: '2rem',
-    paddingBottom: '0rem',
-    // marginBottom: '0rem',
-    // display: 'inline',
-  },
+
   textField: {
     margin: '0rem 2rem auto auto',
     paddingTop: '0rem',
   },
+  successText: {
+    padding: '1rem 0rem 0rem 0rem',
+  },
+  cardImage: {
+    marginTop: '1rem',
+  },
 }));
+const CARD_OPTIONS = {
+  iconStyle: 'solid' as const,
+  style: {
+    base: {
+      iconColor: '#6772e5',
+      color: '#6772e5',
+      fontWeight: '500',
+      fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
+      fontSize: '16px',
+      fontSmoothing: 'antialiased',
+      ':-webkit-autofill': {
+        color: '#fce883',
+      },
+      '::placeholder': {
+        color: '#6772e5',
+      },
+    },
+    invalid: {
+      iconColor: '#ef2961',
+      color: '#ef2961',
+    },
+  },
+};
+
+export { CARD_OPTIONS };
 
 export default useStyles;
