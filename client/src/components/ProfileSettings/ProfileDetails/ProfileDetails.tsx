@@ -20,7 +20,7 @@ import profimg from '../../../Images/profimg.jpg';
 import doggo from '../../../Images/dog1.jpg';
 import doggo1 from '../../../Images/dog2.jpg';
 import { useState, useEffect } from 'react';
-import getProfileDetails from '../../../helpers/APICalls/profile';
+import { getProfileDetails } from '../../../helpers/APICalls/profile';
 import { useAuth } from '../../../context/useAuthContext';
 import Loading from '../../Layout/Loading';
 import { Profile } from '../../../interface/Profile';

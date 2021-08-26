@@ -1,11 +1,11 @@
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
-import { Formik, FormikHelpers } from 'formik';
+import { Formik, FormikHelpers, Field } from 'formik';
 import * as Yup from 'yup';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress, RadioGroup } from '@material-ui/core';
 
 interface Props {
   handleSubmit: (
@@ -13,10 +13,12 @@ interface Props {
       username,
       email,
       password,
+      userType,
     }: {
       email: string;
       password: string;
       username: string;
+      userType: string;
     },
     {
       setStatus,
@@ -25,6 +27,7 @@ interface Props {
       email: string;
       password: string;
       username: string;
+      userType: string;
     }>,
   ) => void;
 
@@ -40,6 +43,7 @@ const SignUpForm = ({ handleSubmit, handleDemoLogin }: Props): JSX.Element => {
         email: '',
         password: '',
         username: '',
+        userType: '',
       }}
       validationSchema={Yup.object().shape({
         username: Yup.string().required('Username is required').max(40, 'Username is too long'),
@@ -109,11 +113,31 @@ const SignUpForm = ({ handleSubmit, handleDemoLogin }: Props): JSX.Element => {
             onChange={handleChange}
           />
 
+          <Box pt={2}>
+            <Typography align="center">Are you a, Pet ...</Typography>
+            <RadioGroup row className={classes.radioWrapper}>
+              <Typography variant="h6">
+                <Field type="radio" name="userType" value="Owner" />
+                Owner
+              </Typography>
+              <Typography variant="h6">
+                <Field type="radio" name="userType" value="Sitter" />
+                Sitter
+              </Typography>
+            </RadioGroup>
+          </Box>
+
           <Box textAlign="center">
             <Button type="submit" size="large" variant="contained" color="secondary" className={classes.submit}>
               {isSubmitting ? <CircularProgress style={{ color: 'white' }} /> : 'Sign Up'}
             </Button>
-            <Button variant="contained" size="large" color="primary" className={classes.submit} onClick={handleDemoLogin}>
+            <Button
+              variant="contained"
+              size="large"
+              color="primary"
+              className={classes.submit}
+              onClick={handleDemoLogin}
+            >
               Demo User
             </Button>
           </Box>

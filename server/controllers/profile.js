@@ -34,54 +34,16 @@ const uploadS3 = multer({
 // @access Private
 
 exports.createProfile = asyncHandler(async (req, res, next) => {
-  const {
-    firstName,
-    lastName,
-    description,
-    email,
-    phoneNumber,
-    availability: { startDate, endDate, daysOfWeek },
-  } = req.query;
+  const { userId, userType, email } = req.body;
 
   const profile = await Profile.create({
-    firstName,
-    lastName,
-    description,
+    userId,
     email,
-    phoneNumber,
-    availability: {
-      startDate,
-      endDate,
-      daysOfWeek: [],
-    },
+    userType,
   });
 
   if (profile) {
-    const token = generateToken(profile._id);
-    const secondsInWeek = 604800;
-
-    res.cookie("token", token, {
-      httpOnly: true,
-      maxAge: secondsInWeek * 1000,
-    });
-
-    res.status(201).json({
-      success: {
-        user: {
-          id: profile._id,
-          ffirstName: profile.firstName,
-          lastName: profile.lastName,
-          description: profile.description,
-          email: profile.email,
-          phoneNumber: profile.phoneNumber,
-          availability: {
-            startDate: profile.availability.startDate,
-            endDate: profile.availability.endDate,
-            daysOfWeek: [],
-          },
-        },
-      },
-    });
+    res.status(201).send(profile._id);
   } else {
     res.status(400);
     throw new Error("Invalid user data");

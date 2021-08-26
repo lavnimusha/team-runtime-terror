@@ -11,13 +11,18 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: '5px',
   },
   inputs: {
-    marginTop: '.8rem',
-    height: '2rem',
+    marginTop: '.6rem',
+    height: '1.5rem',
     padding: '5px',
   },
   forgot: {
     paddingRight: 10,
     color: '#3a8dff',
+  },
+  radioWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
   submit: {
     margin: theme.spacing(3, 2, 2),
