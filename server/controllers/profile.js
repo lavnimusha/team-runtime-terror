@@ -7,7 +7,6 @@ const generateToken = require("../utils/generateToken");
 // @access Private
 
 exports.createProfile = asyncHandler(async (req, res, next) => {
-  console.log(req.body.birthDate);
   const {
     firstName,
     lastName,
@@ -69,7 +68,6 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
     res.status(400);
     throw new Error("Invalid user data");
   }
-  console.log(profile);
 });
 
 // @route GET /profiles
@@ -77,9 +75,9 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
 // @access Private
 
 exports.searchProfiles = asyncHandler(async (req, res, next) => {
-  console.log(req.query);
+  console.log(req.params.email);
 
-  const profile_email = req.query.email;
+  const profile_email = req.params.email;
 
   let profile;
   if (profile_email) {
@@ -95,6 +93,7 @@ exports.searchProfiles = asyncHandler(async (req, res, next) => {
 
   const [result] = profile;
   res.status(200).json(result);
+  console.log(result);
 });
 
 // @route GET /profiles
