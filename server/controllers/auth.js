@@ -23,28 +23,13 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
     res.status(400);
     throw new Error("A user with that username already exists");
   }
-  const profile_id = new ObjectID();
 
   const user = await User.create({
     username,
     email,
     password,
-    profile: profile_id,
   });
 
-  const profile = Profile.create({
-    id: profile_id,
-    email,
-    firstName: " ",
-    lastName: " ",
-    description: " ",
-    gender: "Male",
-    availability: {
-      startDate: "2012-04-23T18:25:43.511Z",
-      endDate: "2012-04-23T18:25:43.511Z",
-      daysOfWeek: ["Saturday", "Monday"],
-    },
-  });
   if (user) {
     const token = generateToken(user._id);
     const secondsInWeek = 604800;
@@ -60,7 +45,6 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
           id: user._id,
           username: user.username,
           email: user.email,
-          profile: user.profile,
         },
       },
     });
