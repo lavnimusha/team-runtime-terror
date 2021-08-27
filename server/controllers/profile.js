@@ -6,77 +6,13 @@ const generateToken = require("../utils/generateToken");
 // @desc Given parameters passed in create a profile
 // @access Private
 
-exports.createProfile = asyncHandler(async (req, res, next) => {
-  const {
-    firstName,
-    lastName,
-    description,
-    email,
-    gender,
-    phoneNumber,
-    birthDate,
-    address,
-    availability: { startDate, endDate, daysOfWeek },
-  } = req.body;
-
-  const profile = await Profile.updateOne(
-    { _id: req.body._id },
-    {
-      firstName,
-      lastName,
-      description,
-      email,
-      gender,
-      phoneNumber,
-      address,
-      birthDate,
-      availability: {
-        startDate,
-        endDate,
-        daysOfWeek,
-      },
-    }
-  );
-
-  if (profile) {
-    const token = generateToken(profile._id);
-    const secondsInWeek = 604800;
-
-    res.cookie("token", token, {
-      httpOnly: true,
-      maxAge: secondsInWeek * 1000,
-    });
-
-    res.status(200).json({
-      success: {
-        user: {
-          id: profile._id,
-          firstName: profile.firstName,
-          lastName: profile.lastName,
-          description: profile.description,
-          email: profile.email,
-          phoneNumber: profile.phoneNumber,
-          availability: {
-            startDate: profile.availability.startDate,
-            endDate: profile.availability.endDate,
-            daysOfWeek: [],
-          },
-        },
-      },
-    });
-  } else {
-    res.status(400);
-    throw new Error("Invalid user data");
-  }
-});
+exports.createProfile = asyncHandler(async (req, res, next) => {});
 
 // @route GET /profiles
 // @desc Search for profiles with query id
 // @access Private
 
 exports.searchProfiles = asyncHandler(async (req, res, next) => {
-  console.log(req.params.email);
-
   const profile_email = req.params.email;
 
   let profile;
@@ -93,7 +29,6 @@ exports.searchProfiles = asyncHandler(async (req, res, next) => {
 
   const [result] = profile;
   res.status(200).json(result);
-  console.log(result);
 });
 
 // @route GET /profiles
@@ -101,9 +36,7 @@ exports.searchProfiles = asyncHandler(async (req, res, next) => {
 // @access Private
 
 exports.listAllProfiles = asyncHandler(async (req, res, next) => {
-  let profiles;
-
-  profiles = await Profile.find({});
+  const profiles = await Profile.find({});
 
   if (!profiles) {
     res.status(404);
@@ -118,32 +51,40 @@ exports.listAllProfiles = asyncHandler(async (req, res, next) => {
 // @access Private
 
 exports.updateProfile = asyncHandler(async (req, res, next) => {
-  const { firstName, lastName, description, email, phoneNumber } = req.query;
-  const profile_id = req.query._id;
+  const {
+    firstName,
+    lastName,
+    description,
+    email,
+    gender,
+    phoneNumber,
+    birthDate,
+    address /*TODO  PLAN TO ADD AVAILABILITY IN ANOTHER MODEL*/,
+    /* availability: { startDate, endDate, daysOfWeek }, */
+  } = req.body;
 
-  const profile = Profile.findOne({ _id: profile_id }, function (err) {
-    if (err) {
-      res.status(404).send("Request not found!!");
-    }
-  });
-
-  if (profile) {
-    await Profile.updateMany(
-      { _id: profile_id },
-      {
-        firstName: req.query.firstName,
-        lastName: req.query.lastName,
-        description: req.query.description,
-        email: req.query.email,
-        phoneNumber: req.query.phoneNumber,
-      },
-      function (err) {
-        if (err) {
-          res.status(501).send("Internal Server Error!");
-        }
-
-        res.status(200).send("Request updated successfully");
+  await Profile.updateOne(
+    { email: req.body.email },
+    {
+      firstName,
+      lastName,
+      description,
+      email,
+      gender,
+      phoneNumber,
+      address,
+      birthDate /*TODO */,
+      /* availability: {
+        startDate,
+        endDate,
+        daysOfWeek,
+    }, */
+    },
+    function (err) {
+      if (err) {
+        res.status(500).send("Internal Server Error!");
       }
-    );
-  }
+      res.status(200).send("Profile updated successfully");
+    }
+  );
 });
