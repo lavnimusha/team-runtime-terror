@@ -5,6 +5,9 @@ export interface Profile {
   phoneNumber: string;
   email: string;
   description: string;
+  address: string;
+  filePath: string;
+  rate: string;
   availability?: [];
 }
 

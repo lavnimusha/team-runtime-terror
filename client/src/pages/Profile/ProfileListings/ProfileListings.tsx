@@ -91,14 +91,14 @@ const ProfileListings = () => {
                             <Avatar
                               className={classes.cardAvatar}
                               alt={`Avatar of ${profile.firstName}`}
-                              src={profile.email}
+                              src={profile.filePath}
                             />
                             <CardContent>
                               <Typography gutterBottom variant="h5" align="center">
                                 {profile.firstName} {profile.lastName}
                               </Typography>
                               <Typography gutterBottom variant="body1" align="center">
-                                {profile.email}
+                                {profile.address}
                               </Typography>
                               <Typography align="center">
                                 <Rating readOnly />
@@ -112,11 +112,11 @@ const ProfileListings = () => {
                               <Box display="flex" flexDirection="row" justifyContent="space-between">
                                 <Typography variant="body2" color="textSecondary">
                                   <LocationOnIcon color="secondary" fontSize="small" />
-                                  Toronto, Ontario
+                                  {profile.address}
                                 </Typography>
 
                                 <Typography variant="body1" color="textSecondary">
-                                  $14/hr
+                                  {profile.rate}
                                 </Typography>
                               </Box>
                             </CardContent>
