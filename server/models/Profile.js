@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const profileSchema = new Schema({
   userId: {
-    type: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    type: Schema.Types.ObjectId,
+    ref: "User",
     required: true,
   },
   firstName: {
