@@ -213,3 +213,54 @@ exports.uploadImage =
       return res.status(500).send(err);
     }
   });
+
+
+
+  exports.payment = asyncHandler(async (req, res, next) => {
+    const incomingUserInfo = JSON.stringify(req.body);
+    const slicedString = incomingUserInfo.slice(1, -4);
+    const userData = JSON.parse(JSON.parse(slicedString));
+
+    if (typeof userData === "string") {
+      let user = await User.findOne({ email: userData }, function (err) {
+        if (err) {
+          res.status(404).send("User not found!!");
+        }
+      });
+      if (user !== null && user.creditCard) {
+        res.send(user.creditCard);
+      } else {
+        res.send("noCard");
+      }
+    } else {
+      let user = await User.findOne({ email: userData.email }, function (err) {
+        if (err) {
+          res.status(404).send("User not found!!");
+        }
+      });
+      if (user !== null) {
+        const { id, brand, last4, expMonth, expYear, email } = userData;
+        await User.findOneAndUpdate(
+          { email: email },
+          {
+            creditCard: {
+              cardId: id,
+              cardType: brand,
+              lastDigits: last4,
+              expMonth: expMonth,
+              expYear: expYear,
+            },
+          },
+          function (err) {
+            if (err) {
+              res.status(404).send("Card not added to DB!!");
+            } else {
+              res.send(" Card added to DB");
+            }
+          }
+        );
+      } else {
+        res.send("noCard");
+      }
+    }
+  });

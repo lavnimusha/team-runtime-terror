@@ -5,25 +5,47 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
   register_date: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   profile: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Profile"
-  }
+    ref: "Profile",
+  },
+  creditCard: new mongoose.Schema({
+    cardId: {
+      type: String,
+      required: true,
+    },
+    cardType: {
+      type: String,
+      required: true,
+    },
+    lastDigits: {
+      type: Number,
+      required: true,
+    },
+    expMonth: {
+      type: Number,
+      required: true,
+    },
+    expYear: {
+      type: Number,
+      required: true,
+    },
+  }),
 });
 
 userSchema.methods.matchPassword = async function (enteredPassword) {

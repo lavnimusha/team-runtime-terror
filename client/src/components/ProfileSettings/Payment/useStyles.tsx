@@ -36,6 +36,11 @@ const useStyles = makeStyles((theme) => ({
     alignContent: 'flex-start',
     display: 'flex',
   },
+  customerSavedCard: {
+    alignItems: 'flex-start',
+    alignContent: 'flex-start',
+    display: 'flex',
+  },
   customerSingleCard: {
     padding: '3rem 0rem',
     backgroundColor: 'lightgrey',

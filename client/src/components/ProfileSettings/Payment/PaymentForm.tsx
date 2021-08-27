@@ -10,8 +10,11 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import PaymentReUse from './PaymentReUse';
+import { useAuth } from '../../../context/useAuthContext';
 
 const Payment = (): JSX.Element => {
+  const { loggedInUser } = useAuth();
   const classes = useStyles();
   const [success, setSuccess] = useState(false);
   const [open, setOpen] = useState(false);
@@ -29,12 +32,20 @@ const Payment = (): JSX.Element => {
 
     if (!error) {
       setCardDetail(paymentMethod!.card as any);
-      console.log(paymentMethod!.card);
+
       try {
         const { id } = paymentMethod!;
-        const response = await axios.post('http://localhost:3001/profile/payment', JSON.stringify({ id }));
+        const brand = paymentMethod!.card!.brand;
+        const last4 = paymentMethod!.card!.last4;
+        const expMonth = paymentMethod!.card!.exp_month;
+        const expYear = paymentMethod!.card!.exp_year;
+        const email = loggedInUser?.email;
+        const response = await axios.post(
+          'http://localhost:3001/profile/payment',
+          JSON.stringify({ id, brand, last4, expMonth, expYear, email }),
+        );
         if (response.data) {
-          console.log('Successfully added');
+          console.log('Successfully sent to server');
           setSuccess(true);
         }
       } catch (error) {
@@ -61,6 +72,7 @@ const Payment = (): JSX.Element => {
         <Typography variant="subtitle1" className={classes.paymentText}>
           Saved Payment Profiles:
         </Typography>
+
         {!success ? (
           <Paper elevation={1} className={classes.customerSingleCard}>
             <img src={image} alt="credit card" className={classes.sampleCard} />
@@ -70,17 +82,12 @@ const Payment = (): JSX.Element => {
         ) : (
           <>
             <Typography className={classes.successText}>Successfully added the following card!</Typography>
-            <Box className={classes.cardImage}>
-              {cardDetail.brand == 'visa' ? (
-                <i className="fab fa-cc-visa fa-5x visaCard"></i>
-              ) : (
-                <i className="fab fa-cc-mastercard fa-5x"></i>
-              )}
-            </Box>
-            <Typography className={classes.successText}>**** **** **** {cardDetail.last4}</Typography>
-            <Typography className={classes.successText}>
-              Exp. Date {cardDetail.exp_month}/{cardDetail.exp_year}
-            </Typography>
+            <PaymentReUse
+              brand={cardDetail.brand}
+              last4={cardDetail.last4}
+              expMonth={cardDetail.exp_month}
+              expYear={cardDetail.exp_year}
+            />
           </>
         )}
         <Button
