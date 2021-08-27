@@ -18,7 +18,7 @@ exports.sendMessage = asyncHandler(async (req, res, next) => {
 
         res.json({
           status: true,
-          status_code: 200,
+          status_code: 201,
           data: message,
           message: "Message sent successfully",
         });
@@ -39,7 +39,7 @@ exports.sendMessage = asyncHandler(async (req, res, next) => {
 
     res.json({
       status: true,
-      status_code: 200,
+      status_code: 201,
       data: message,
       message: "Message sent successfully",
     });

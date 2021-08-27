@@ -16,7 +16,7 @@ exports.getAllConversations = asyncHandler(async (req, res, next) => {
     (err, conversations) => {
       res.json({
         status: true,
-        status_code: 200,
+        status_code: 201,
         conversations: conversations,
         message: "Conversations fetched successfully",
       });
@@ -34,7 +34,7 @@ exports.getAllMessagesForConvo = asyncHandler(async (req, res, next) => {
       } else {
         res.json({
           status: true,
-          status_code: 200,
+          status_code: 201,
           conversations: messages,
           message: "Messages fetched successfully",
         });
