@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik, FormikValues, setNestedObjectValues } from 'formik';
 import useStyles from './useStyles';
 import * as Yup from 'yup';
@@ -22,26 +21,13 @@ import MuiPhoneNumber from 'material-ui-phone-number';
 import { useAuth } from '../../../context/useAuthContext';
 import { FetchOptions } from '../../../interface/FetchOptions';
 import Profile from '../../../pages/Profile/Profile';
-
-export interface IFormInitialValues {
-  firstName: string;
-  lastName: string;
-  email: string;
-  birthDate: string;
-  address: string;
-  phoneNumber: string;
-  description: string;
-  gender: string;
-  availability: {
-    startDate: Date;
-    endDate: Date;
-    daysOfWeek: Array<string>;
-  };
-}
+import { IFormInitialValues } from '../../../interface/Profile';
+import handleSubmit from '../../../helpers/APICalls/editProfile';
 
 const EditProfile = () => {
   const classes = useStyles();
   const [phone, setPhone] = useState('');
+
   const [profileData, setprofileData] = useState<IFormInitialValues>({
     firstName: '',
     lastName: '',
@@ -51,11 +37,6 @@ const EditProfile = () => {
     phoneNumber: '',
     description: '',
     gender: 'Male',
-    availability: {
-      startDate: new Date(),
-      endDate: new Date(),
-      daysOfWeek: ['saturday'],
-    },
   });
   const { loggedInUser } = useAuth();
 
@@ -65,13 +46,12 @@ const EditProfile = () => {
         method: 'GET',
         credentials: 'include',
       };
-      setprofileData(
-        await fetch(`/profiles/search/${loggedInUser!.email}`, fetchOptions)
-          .then((res) => res.json())
-          .catch(() => ({
-            error: { message: 'Unable to connect to server. Please try again' },
-          })),
-      );
+      const data = await fetch(`/profiles/search/${loggedInUser!.email}`, fetchOptions)
+        .then((res) => res.json())
+        .catch(() => ({
+          error: { message: 'Unable to connect to server. Please try again' },
+        }));
+      setprofileData(data);
     };
     incomingProfileData();
   }, [loggedInUser]);
@@ -89,17 +69,10 @@ const EditProfile = () => {
           .max(40),
         email: Yup.string().email('Invalid email address').required('Required'),
       })}
-      onSubmit={async (values, { setSubmitting }) => {
+      onSubmit={(values, { setSubmitting }) => {
         values.phoneNumber = phone;
         setprofileData(values);
-        await axios
-          .post('http://localhost:3001/profiles/create', values)
-          .then((res) => {
-            console.log(res.data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        handleSubmit(values);
         setSubmitting(false);
       }}
     >
