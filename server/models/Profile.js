@@ -4,11 +4,9 @@ const Schema = mongoose.Schema;
 const profileSchema = new Schema({
   firstName: {
     type: String,
-    required: true,
   },
   lastName: {
     type: String,
-    required: true,
   },
   phoneNumber: {
     type: String,
@@ -21,7 +19,6 @@ const profileSchema = new Schema({
   },
   description: {
     type: String,
-    required: true,
   },
   address: {
     type: String,
@@ -32,19 +29,17 @@ const profileSchema = new Schema({
   birthDate: {
     type: Date,
   },
-  availability: new Schema({
+  /* availability: new Schema({
     startDate: {
       type: Date,
       default: Date.now,
-      required: false,
     },
     endDate: {
       type: Date,
       default: Date,
-      required: false,
     },
     daysOfWeek: [{ type: String }],
-  }),
+  }), */
 });
 
 module.exports = Profile = mongoose.model("profile", profileSchema);
