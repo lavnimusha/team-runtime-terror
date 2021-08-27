@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const protect = require("../middleware/auth");
+console.log("coming");
 const {
   searchProfiles,
   createProfile,
   listAllProfiles,
   updateProfile,
 } = require("../controllers/profile");
-console.log("hey you there");
+
 router.route("/create").post(createProfile);
 
 router.route("/search/:email").get(protect, searchProfiles);

@@ -29,6 +29,10 @@ const profileSchema = new Schema({
   birthDate: {
     type: Date,
   },
+  availability: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Availability",
+  },
   /* availability: new Schema({
     startDate: {
       type: Date,
